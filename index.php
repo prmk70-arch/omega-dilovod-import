@@ -131,6 +131,7 @@ function createProduct($code, $name)
             'saveType' => 1,
             'header' => [
                 'id' => 'catalogs.goods',
+                'firm' => ['id' => FIRM_ID],
                 'code' => $code,
                 'name' => $name
             ]
