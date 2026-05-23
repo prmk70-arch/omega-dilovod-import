@@ -209,8 +209,7 @@ foreach ($products as $p) {
 
     'goodPart' => 0,
     'byOrder' => 0,
-    'purchaseOrder' => 0
-];
+    ];
 
     $row++;
 }
