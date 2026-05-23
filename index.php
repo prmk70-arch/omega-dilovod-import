@@ -219,43 +219,30 @@ $doc = dilovod([
     'params' => [
         'saveType' => 1,
         'header' => [
-    'id' => 0,
+   'id' => 0,
     'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
     'number' => $omega['Number'],
-    'presentation' => [],
-    'remark' => '',
-    'baseDoc' => 0,
 
     'firm' => FIRM_ID,
     'business' => BUSINESS_ID,
     'storage' => STORAGE_ID,
     'person' => PERSON_ID,
     'contract' => CONTRACT_ID,
-    'contact' => 0,
-    'operType_forDel' => 0,
 
     'currency' => CURRENCY_ID,
     'amountCur' => $omega['Summ'],
     'rate' => 1,
 
-    'originalDate' => '0000-00-00 00:00:00',
-    'originalNumber' => $omega['Number'],
-    'payBefore' => '0000-00-00 00:00:00',
-
     'taxAccount' => 1,
     'paymentForm' => '1110300000000001',
     'department' => '1101900000000001',
-
-    'prodOrder' => 0,
-    'prodOrderInTp' => 0,
 
     'state' => '1111500000000005',
     'docMode' => DOCMODE_ID,
 
     'taxManual' => 0,
     'taxIncluded' => 0,
-    'details' => '',
-    'custFeeAmount' => 0
+    'details' => ''
 ],
         'tableParts' => [
             'tpGoods' => $tpGoods
