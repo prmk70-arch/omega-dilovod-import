@@ -131,9 +131,25 @@ function createProduct($code, $name)
             'saveType' => 1,
             'header' => [
                 'id' => 'catalogs.goods',
-                'firm' => FIRM_ID,
                 'code' => $code,
-                'name' => $name
+                'isGroup' => 0,
+                'owner' => 'catalogs.goods',
+                'parent' => 0,
+
+                'name' => [
+                    'uk' => $name,
+                    'ru' => $name
+                ],
+
+                'mainUnit' => '1103600000000001',
+                'tradeMark' => '1101600000001003',
+                'accPolicy' => '1201200000001002',
+                'specQty' => 1
+            ],
+            'tableParts' => [
+                'tpGoods' => [],
+                'tpReplacements' => [],
+                'tpOperations' => []
             ]
         ]
     ]);
