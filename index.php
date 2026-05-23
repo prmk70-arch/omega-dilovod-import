@@ -228,7 +228,6 @@ $doc = dilovod([
     'settlementsKind' => '1103300000000002',
 
     'docMode' => DOCMODE_ID,
-    'autoClosing' => 1,
     'posted' => 0
 ],
         'tableParts' => [
