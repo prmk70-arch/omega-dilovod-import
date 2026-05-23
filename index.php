@@ -209,7 +209,7 @@ $doc = dilovod([
             'id' => 'documents.purchase',
             'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
             'number' => $omega['Number'],
-            'posted' => 1,
+            'posted' => 0,
             'firm' => ['id' => FIRM_ID],
             'business' => ['id' => BUSINESS_ID],
             'storage' => ['id' => STORAGE_ID],
