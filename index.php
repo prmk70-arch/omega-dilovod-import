@@ -206,20 +206,31 @@ $doc = dilovod([
     'params' => [
         'saveType' => 1,
         'header' => [
-            'id' => 'documents.purchase',
-            'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
-            'number' => $omega['Number'],
-            'posted' => 0,
-            'firm' => ['id' => FIRM_ID],
-            'business' => ['id' => BUSINESS_ID],
-            'storage' => ['id' => STORAGE_ID],
-            'person' => ['id' => PERSON_ID],
-            'contract' => ['id' => CONTRACT_ID],
-            'currency' => ['id' => CURRENCY_ID],
-            'docMode' => ['id' => DOCMODE_ID],
-            'amountCur' => $omega['Summ'],
-            'rate' => 1
-        ],
+    'id' => 'documents.purchase',
+
+    'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
+    'number' => $omega['Number'],
+
+    'firm' => FIRM_ID,
+    'business' => BUSINESS_ID,
+    'storage' => STORAGE_ID,
+    'person' => PERSON_ID,
+    'contract' => CONTRACT_ID,
+
+    'currency' => CURRENCY_ID,
+    'amountCur' => $omega['Summ'],
+    'rate' => 1,
+
+    'taxAccount' => 1,
+    'paymentForm' => '1110300000000001',
+    'department' => '1101900000000001',
+    'state' => '1111500000000005',
+    'settlementsKind' => '1103300000000002',
+
+    'docMode' => DOCMODE_ID,
+    'autoClosing' => 1,
+    'posted' => 0
+],
         'tableParts' => [
             'tpGoods' => $tpGoods
         ]
