@@ -189,14 +189,28 @@ foreach ($products as $p) {
     }
 
     $tpGoods[] = [
-        'rowNum' => (string)$row,
-        'good' => $goodId,
-        'price' => number_format($price, 5, '.', ''),
-        'qty' => number_format($qty, 3, '.', ''),
-        'baseQty' => number_format($qty, 3, '.', ''),
-        'priceAmount' => round($price * $qty, 2),
-        'amountCur' => round($price * $qty, 2)
-    ];
+    'rowNum' => (string)$row,
+    'good' => $goodId,
+
+    'price' => number_format($price, 5, '.', ''),
+    'qty' => number_format($qty, 3, '.', ''),
+    'baseQty' => number_format($qty, 3, '.', ''),
+    'priceAmount' => round($price * $qty, 2),
+    'amountCur' => round($price * $qty, 2),
+
+    'unit' => '1103600000000001',
+    'ratio' => '1.0000',
+
+    'discount' => '0.00',
+    'discountPercent' => '0.0',
+
+    'vatTax' => '1105800000000023',
+    'vatAmount' => '0.00',
+
+    'goodPart' => 0,
+    'byOrder' => 0,
+    'purchaseOrder' => 0
+];
 
     $row++;
 }
