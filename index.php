@@ -133,7 +133,6 @@ function createProduct($code, $name)
                 'id' => 'catalogs.goods',
                 'code' => $code,
                 'isGroup' => 0,
-                'parent' => 0,
 
                 'name' => [
                     'uk' => $name,
