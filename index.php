@@ -216,6 +216,7 @@ $doc = dilovod([
             'person' => ['id' => PERSON_ID],
             'contract' => ['id' => CONTRACT_ID],
             'currency' => ['id' => CURRENCY_ID],
+            'docMode' => ['id' => DOCMODE_ID],
             'amountCur' => $omega['Summ'],
             'rate' => 1
         ],
