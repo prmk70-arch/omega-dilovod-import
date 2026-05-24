@@ -216,7 +216,7 @@ function importDocument($docId)
     $row = 1;
 
     foreach ($products as $p) {
-        $code = trim($p['Code']);
+        $code = trim($p['Card'] ?: $p['Code']);
         $name = trim($p['ProductDescrition']);
         $qty = (float)$p['Count'];
         $price = (float)$p['PiceWithVAT'];
@@ -264,6 +264,7 @@ function importDocument($docId)
                 'id' => 'documents.purchase',
                 'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
                 'number' => $omega['Number'],
+                'originalNumber' => $omega['Number'],  
                 'firm' => FIRM_ID,
                 'business' => BUSINESS_ID,
                 'storage' => STORAGE_ID,
