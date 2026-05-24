@@ -1,6 +1,7 @@
 <?php
 
 header('Content-Type: text/plain; charset=utf-8');
+set_time_limit(300);
 
 $omegaKey   = getenv('OMEGA_API_KEY');
 $dilovodKey = getenv('DILOVOD_API_KEY');
@@ -8,12 +9,9 @@ $dilovodKey = getenv('DILOVOD_API_KEY');
 if (!$omegaKey) die('OMEGA_API_KEY not set');
 if (!$dilovodKey) die('DILOVOD_API_KEY not set');
 
-$docId = $_GET['docId'] ?? '';
-if (!$docId) die('Use URL like: ?docId=OMEGA_DOC_ID');
-
 const FIRM_ID      = '1100400000001002';
 const PERSON_ID    = '1100100000001002';
-const STORAGE_ID   = '1100700000001001';
+const STORAGE_ID   = '1100700000000001'; // Основний склад
 const BUSINESS_ID  = '1115000000000001';
 const CONTRACT_ID  = '1103000000001024';
 const CURRENCY_ID  = '1101200000001001';
@@ -23,13 +21,14 @@ function postJson($url, $data)
 {
     $ch = curl_init($url);
 
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Accept: application/json'
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($data),
+        CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Accept: application/json'
+        ]
     ]);
 
     $response = curl_exec($ch);
@@ -52,11 +51,12 @@ function dilovod($packet)
 
     $ch = curl_init('https://api.dilovod.ua');
 
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-
-    curl_setopt($ch, CURLOPT_POSTFIELDS, [
-        'packet' => json_encode($packet)
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => [
+            'packet' => json_encode($packet)
+        ]
     ]);
 
     $response = curl_exec($ch);
@@ -70,7 +70,25 @@ function dilovod($packet)
     return json_decode($response, true);
 }
 
-function getOmegaHeader($docId)
+function omegaList()
+{
+    global $omegaKey;
+
+    $start = date('d.m.Y', strtotime('-3 days'));
+    $end   = date('d.m.Y');
+
+    return postJson(
+        'https://public.omega.page/public/api/v1.0/expense/getExpenseDocumentList',
+        [
+            'StartDate' => $start,
+            'EndDate' => $end,
+            'Index' => 0,
+            'Key' => $omegaKey
+        ]
+    );
+}
+
+function omegaHeader($docId)
 {
     global $omegaKey;
 
@@ -83,7 +101,7 @@ function getOmegaHeader($docId)
     );
 }
 
-function getOmegaProducts($docId)
+function omegaProducts($docId)
 {
     global $omegaKey;
 
@@ -94,6 +112,29 @@ function getOmegaProducts($docId)
             'DocId' => $docId
         ]
     );
+}
+
+function findDocumentByNumber($number)
+{
+    $res = dilovod([
+        'action' => 'request',
+        'params' => [
+            'from' => 'documents.purchase',
+            'fields' => [
+                'id' => 'id',
+                'number' => 'number'
+            ],
+            'filters' => [
+                [
+                    'alias' => 'number',
+                    'operator' => '=',
+                    'value' => $number
+                ]
+            ]
+        ]
+    ]);
+
+    return !empty($res[0]['id']);
 }
 
 function findProduct($code)
@@ -116,11 +157,7 @@ function findProduct($code)
         ]
     ]);
 
-    if (!empty($res[0]['id'])) {
-        return $res[0]['id'];
-    }
-
-    return false;
+    return $res[0]['id'] ?? false;
 }
 
 function createProduct($code, $name)
@@ -133,12 +170,10 @@ function createProduct($code, $name)
                 'id' => 'catalogs.goods',
                 'code' => $code,
                 'isGroup' => 0,
-
                 'name' => [
                     'uk' => $name,
                     'ru' => $name
                 ],
-
                 'mainUnit' => '1103600000000001',
                 'tradeMark' => '1101600000001003',
                 'accPolicy' => '1201200000001002',
@@ -159,104 +194,109 @@ function createProduct($code, $name)
     die("PRODUCT CREATE ERROR:\n" . print_r($res, true));
 }
 
-$headerRes = getOmegaHeader($docId);
-$productsRes = getOmegaProducts($docId);
+function importDocument($docId)
+{
+    $headerRes = omegaHeader($docId);
+    $productsRes = omegaProducts($docId);
 
-if (empty($headerRes['Success'])) {
-    die("OMEGA HEADER ERROR:\n" . print_r($headerRes, true));
-}
-
-if (empty($productsRes['Success'])) {
-    die("OMEGA PRODUCTS ERROR:\n" . print_r($productsRes, true));
-}
-
-$omega = $headerRes['Data'];
-$products = $productsRes['Data'];
-
-$tpGoods = [];
-$row = 1;
-
-foreach ($products as $p) {
-    $code = trim($p['Code']);
-    $name = trim($p['ProductDescrition']);
-    $qty = (float)$p['Count'];
-    $price = (float)$p['PiceWithVAT'];
-
-    $goodId = findProduct($code);
-
-    if (!$goodId) {
-        $goodId = createProduct($code, $name);
+    if (empty($headerRes['Success']) || empty($productsRes['Success'])) {
+        echo "OMEGA ERROR: $docId\n";
+        return;
     }
 
-    $tpGoods[] = [
-    'rowNum' => (string)$row,
-    'good' => $goodId,
+    $omega = $headerRes['Data'];
+    $products = $productsRes['Data'];
 
-    'price' => number_format($price, 5, '.', ''),
-    'qty' => number_format($qty, 3, '.', ''),
-    'baseQty' => number_format($qty, 3, '.', ''),
-    'priceAmount' => round($price * $qty, 2),
+    if (findDocumentByNumber($omega['Number'])) {
+        echo "SKIP EXISTS: {$omega['Number']}\n";
+        return;
+    }
 
-    'unit' => '1103600000000001',
-    'ratio' => '1.0000',
+    $tpGoods = [];
+    $row = 1;
 
-    'discount' => '0.00',
-    'discountPercent' => '0.0',
+    foreach ($products as $p) {
+        $code = trim($p['Code']);
+        $name = trim($p['ProductDescrition']);
+        $qty = (float)$p['Count'];
+        $price = (float)$p['PiceWithVAT'];
 
-    'amountCur' => round($price * $qty, 2),
+        $goodId = findProduct($code);
 
-    'goodPart' => 0,
-    'gCharForDelete' => 0,
-    'analytics1' => 0,
-    'analytics2' => 0,
-    'analytics3' => 0,
-    'analytics4' => 0,
-    'analytics5' => 0,
-    'analytics6' => 0,
-    'analytics7' => 0,
-    'analytics8' => 0,
+        if (!$goodId) {
+            $goodId = createProduct($code, $name);
+        }
 
-    'vatTax' => '1105800000000023',
-    'vatAmount' => '0.00'
-];
-    $row++;
+        $tpGoods[] = [
+            'rowNum' => (string)$row,
+            'good' => $goodId,
+            'price' => number_format($price, 5, '.', ''),
+            'qty' => number_format($qty, 3, '.', ''),
+            'baseQty' => number_format($qty, 3, '.', ''),
+            'priceAmount' => round($price * $qty, 2),
+            'unit' => '1103600000000001',
+            'ratio' => '1.0000',
+            'discount' => '0.00',
+            'discountPercent' => '0.0',
+            'amountCur' => round($price * $qty, 2),
+            'goodPart' => 0,
+            'gCharForDelete' => 0,
+            'analytics1' => 0,
+            'analytics2' => 0,
+            'analytics3' => 0,
+            'analytics4' => 0,
+            'analytics5' => 0,
+            'analytics6' => 0,
+            'analytics7' => 0,
+            'analytics8' => 0,
+            'vatTax' => '1105800000000023',
+            'vatAmount' => '0.00'
+        ];
+
+        $row++;
+    }
+
+    $doc = dilovod([
+        'action' => 'saveObject',
+        'params' => [
+            'saveType' => 1,
+            'header' => [
+                'id' => 'documents.purchase',
+                'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
+                'number' => $omega['Number'],
+                'firm' => FIRM_ID,
+                'business' => BUSINESS_ID,
+                'storage' => STORAGE_ID,
+                'person' => PERSON_ID,
+                'contract' => CONTRACT_ID,
+                'currency' => CURRENCY_ID,
+                'amountCur' => $omega['Summ'],
+                'rate' => 1,
+                'taxAccount' => 1,
+                'paymentForm' => '1110300000000001',
+                'department' => '1101900000000001',
+                'state' => '1111500000000005',
+                'docMode' => DOCMODE_ID,
+                'posted' => 0
+            ],
+            'tableParts' => [
+                'tpGoods' => $tpGoods
+            ]
+        ]
+    ]);
+
+    print_r($doc);
+    echo "\n";
 }
 
-$doc = dilovod([
-    'action' => 'saveObject',
-    'params' => [
-        'saveType' => 1,
-        'header' => [
-   'id' => 'documents.purchase',
-    'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
-    'number' => $omega['Number'],
+$list = omegaList();
 
-    'firm' => FIRM_ID,
-    'business' => BUSINESS_ID,
-    'storage' => STORAGE_ID,
-    'person' => PERSON_ID,
-    'contract' => CONTRACT_ID,
+if (empty($list['Success']) || empty($list['Data']['Result'])) {
+    die("NO DOCUMENTS\n");
+}
 
-    'currency' => CURRENCY_ID,
-    'amountCur' => $omega['Summ'],
-    'rate' => 1,
+foreach ($list['Data']['Result'] as $doc) {
+    importDocument($doc['Id']);
+}
 
-    'taxAccount' => 1,
-    'paymentForm' => '1110300000000001',
-    'department' => '1101900000000001',
-
-    'state' => '1111500000000005',
-    'docMode' => DOCMODE_ID,
-
-    'taxManual' => 0,
-    'taxIncluded' => 0,
-    'details' => ''
-],
-        'tableParts' => [
-            'tpGoods' => $tpGoods
-        ]
-    ]
-]);
-
-echo "RESULT:\n\n";
-print_r($doc);
+echo "DONE\n";
