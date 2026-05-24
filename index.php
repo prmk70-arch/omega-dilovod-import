@@ -173,7 +173,7 @@ function createProduct($code, $name)
             'saveType' => 1,
             'header' => [
                 'id' => 'catalogs.goods',
-                'code' => $code,
+                'code' => '',
                 'productNum' => $code,
                 'isGroup' => 0,
                 'name' => [
