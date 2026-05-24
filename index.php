@@ -122,11 +122,11 @@ function findDocumentByNumber($number)
             'from' => 'documents.purchase',
             'fields' => [
                 'id' => 'id',
-                'number' => 'number'
+                'originalNumber' => 'originalNumber'
             ],
             'filters' => [
                 [
-                    'alias' => 'number',
+                    'alias' => 'originalNumber',
                     'operator' => '=',
                     'value' => $number
                 ]
