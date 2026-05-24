@@ -222,16 +222,12 @@ foreach ($products as $p) {
     $row++;
 }
 
-echo "<pre>";
-print_r($tpGoods);
-die();
-
 $doc = dilovod([
     'action' => 'saveObject',
     'params' => [
         'saveType' => 1,
         'header' => [
-   'id' => 0,
+   'id' => 'documents.purchase',
     'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
     'number' => $omega['Number'],
 
