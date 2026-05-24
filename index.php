@@ -222,7 +222,7 @@ function importDocument($docId)
     $row = 1;
 
     foreach ($products as $p) {
-        $code = trim($p['Card'] ?: $p['Code']);
+        $code = trim($p['Code']);
         $name = trim($p['ProductDescrition']);
         $qty = (float)$p['Count'];
         $price = (float)$p['PiceWithVAT'];
