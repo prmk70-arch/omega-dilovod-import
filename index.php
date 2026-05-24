@@ -174,6 +174,7 @@ function createProduct($code, $name)
             'header' => [
                 'id' => 'catalogs.goods',
                 'code' => $code,
+                'productNum' => $code,
                 'isGroup' => 0,
                 'name' => [
                     'uk' => $name,
