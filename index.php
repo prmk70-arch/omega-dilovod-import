@@ -222,6 +222,10 @@ foreach ($products as $p) {
     $row++;
 }
 
+echo "<pre>";
+print_r($tpGoods);
+die();
+
 $doc = dilovod([
     'action' => 'saveObject',
     'params' => [
