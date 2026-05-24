@@ -196,7 +196,6 @@ foreach ($products as $p) {
     'qty' => number_format($qty, 3, '.', ''),
     'baseQty' => number_format($qty, 3, '.', ''),
     'priceAmount' => round($price * $qty, 2),
-    'amountCur' => round($price * $qty, 2),
 
     'unit' => '1103600000000001',
     'ratio' => '1.0000',
@@ -204,13 +203,22 @@ foreach ($products as $p) {
     'discount' => '0.00',
     'discountPercent' => '0.0',
 
-    'vatTax' => '1105800000000023',
-    'vatAmount' => '0.00',
+    'amountCur' => round($price * $qty, 2),
 
     'goodPart' => 0,
-    'byOrder' => 0,
-    ];
+    'gCharForDelete' => 0,
+    'analytics1' => 0,
+    'analytics2' => 0,
+    'analytics3' => 0,
+    'analytics4' => 0,
+    'analytics5' => 0,
+    'analytics6' => 0,
+    'analytics7' => 0,
+    'analytics8' => 0,
 
+    'vatTax' => '1105800000000023',
+    'vatAmount' => '0.00'
+];
     $row++;
 }
 
