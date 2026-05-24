@@ -263,7 +263,6 @@ function importDocument($docId)
             'header' => [
                 'id' => 'documents.purchase',
                 'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
-                'number' => $omega['Number'],
                 'originalNumber' => $omega['Number'],  
                 'firm' => FIRM_ID,
                 'business' => BUSINESS_ID,
