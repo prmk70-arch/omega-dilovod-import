@@ -195,18 +195,25 @@ function createBrand($name)
         'params' => [
             'saveType' => 1,
             'header' => [
-                'id' => 'catalogs.tradeMarks',
+                'id' => 0,
+                'code' => 0,
+                'isGroup' => 0,
                 'name' => [
                     'uk' => $name,
                     'ru' => $name
-                ]
-            ]
+                ],
+                'owner' => 'catalogs.tradeMarks'
+            ],
+            'tableParts' => []
         ]
     ]);
 
     if (!empty($res['id'])) {
         return $res['id'];
     }
+
+    die("BRAND CREATE ERROR:\n" . print_r($res, true));
+}
 
     die("BRAND CREATE ERROR:\n" . print_r($res, true));
 }
