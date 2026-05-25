@@ -215,9 +215,6 @@ function createBrand($name)
     die("BRAND CREATE ERROR:\n" . print_r($res, true));
 }
 
-    die("BRAND CREATE ERROR:\n" . print_r($res, true));
-}
-
 function createProduct($code, $name, $brandId)
 {
     $res = dilovod([
