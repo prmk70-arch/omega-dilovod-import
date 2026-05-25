@@ -273,10 +273,18 @@ function importDocument($docId)
         $qty = (float)$p['Count'];
         $price = (float)$p['PiceWithVAT'];
 
+        $brandName = trim($p['Brand'] ?? 'Без бренду');
+
+        $brandId = findBrand($brandName);
+
+        if (!$brandId) {
+        $brandId = createBrand($brandName);
+        }
+
         $goodId = findProduct($code);
 
         if (!$goodId) {
-            $goodId = createProduct($code, $name);
+        $goodId = createProduct($code, $name, $brandId);
         }
 
         $tpGoods[] = [
