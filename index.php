@@ -288,8 +288,6 @@ function importDocument($docId)
         $qty = (float)$p['Count'];
         $price = (float)$p['PiceWithVAT'];
 
-        print_r($p);
-        echo "\n";
         $brandName = trim($p['Brand'] ?? '');
 
     if (!$brandName) {
@@ -306,7 +304,6 @@ function importDocument($docId)
         $brandId = createBrand($brandName);
         }
 
-        echo "BRAND: " . $brandName . " => " . $brandId . "\n";
         $goodId = findProduct($code);
 
         if (!$goodId) {
