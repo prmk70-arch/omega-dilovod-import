@@ -165,7 +165,53 @@ function findProduct($code)
     return $res[0]['id'] ?? false;
 }
 
-function createProduct($code, $name)
+function findBrand($name)
+{
+    $res = dilovod([
+        'action' => 'request',
+        'params' => [
+            'from' => 'catalogs.tradeMarks',
+            'fields' => [
+                'id' => 'id',
+                'name' => 'name'
+            ],
+            'filters' => [
+                [
+                    'alias' => 'name',
+                    'operator' => '=',
+                    'value' => $name
+                ]
+            ]
+        ]
+    ]);
+
+    return $res[0]['id'] ?? false;
+}
+
+function createBrand($name)
+{
+    $res = dilovod([
+        'action' => 'saveObject',
+        'params' => [
+            'saveType' => 1,
+            'header' => [
+                'id' => 'catalogs.tradeMarks',
+                'name' => [
+                    'uk' => $name,
+                    'ru' => $name
+                ]
+            ]
+        ]
+    ]);
+
+    if (!empty($res['id'])) {
+        return $res['id'];
+    }
+
+    die("BRAND CREATE ERROR:\n" . print_r($res, true));
+}
+
+function createProduct($code, $name, $brandId)
 {
     $res = dilovod([
         'action' => 'saveObject',
@@ -181,7 +227,7 @@ function createProduct($code, $name)
                     'ru' => $name
                 ],
                 'mainUnit' => '1103600000000001',
-                'tradeMark' => '1101600000001003',
+                'tradeMark' => '$brandId',
                 'accPolicy' => '1201200000001002',
                 'specQty' => 1
             ],
