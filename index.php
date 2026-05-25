@@ -290,7 +290,15 @@ function importDocument($docId)
 
         print_r($p);
         echo "\n";
-        $brandName = trim($p['Brand'] ?? 'Без бренду');
+        $brandName = trim($p['Brand'] ?? '');
+
+    if (!$brandName) {
+        if (preg_match('/\(пр-во\s+([^)]+)\)/ui', $p['ProductDescrition'], $m)) {
+            $brandName = trim($m[1]);
+        } else {
+            $brandName = 'Без бренду';
+        }
+    }
 
         $brandId = findBrand($brandName);
 
