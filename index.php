@@ -374,11 +374,19 @@ if (empty($list['Success']) || empty($list['Data']['Result'])) {
 $processed = [];
 
 foreach ($list['Data']['Result'] as $doc) {
-    if (in_array($doc['Id'], $processed, true)) {
+    $header = omegaHeader($doc['Id']);
+
+    if (empty($header['Success'])) {
         continue;
     }
 
-    $processed[] = $doc['Id'];
+    $number = $header['Data']['Number'];
+
+    if (in_array($number, $processed, true)) {
+        continue;
+    }
+
+    $processed[] = $number;
 
     importDocument($doc['Id']);
 }
