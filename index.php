@@ -227,7 +227,6 @@ function createProduct($code, $name, $brandId)
                     'ru' => $name
                 ],
                 'mainUnit' => '1103600000000001',
-                'tradeMark' => '$brandId',
                 'accPolicy' => '1201200000001002',
                 'specQty' => 1
             ],
