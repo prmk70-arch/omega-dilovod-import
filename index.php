@@ -296,6 +296,7 @@ function importDocument($docId)
         $brandId = createBrand($brandName);
         }
 
+        echo "BRAND: " . $brandName . " => " . $brandId . "\n";
         $goodId = findProduct($code);
 
         if (!$goodId) {
