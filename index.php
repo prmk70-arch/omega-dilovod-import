@@ -371,7 +371,15 @@ if (empty($list['Success']) || empty($list['Data']['Result'])) {
     die("NO DOCUMENTS\n");
 }
 
+$processed = [];
+
 foreach ($list['Data']['Result'] as $doc) {
+    if (in_array($doc['Id'], $processed, true)) {
+        continue;
+    }
+
+    $processed[] = $doc['Id'];
+
     importDocument($doc['Id']);
 }
 
