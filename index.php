@@ -150,11 +150,11 @@ function findProduct($code)
             'from' => 'catalogs.goods',
             'fields' => [
                 'id' => 'id',
-                'code' => 'code'
+                'productNum' => 'productNum'
             ],
             'filters' => [
                 [
-                    'productNum / alias=productNum',
+                    'alias' => 'productNum',
                     'operator' => '=',
                     'value' => $code
                 ]
