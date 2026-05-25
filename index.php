@@ -154,7 +154,7 @@ function findProduct($code)
             ],
             'filters' => [
                 [
-                    'alias' => 'code',
+                    'productNum / alias=productNum',
                     'operator' => '=',
                     'value' => $code
                 ]
