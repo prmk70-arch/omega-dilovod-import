@@ -288,6 +288,8 @@ function importDocument($docId)
         $qty = (float)$p['Count'];
         $price = (float)$p['PiceWithVAT'];
 
+        print_r($p);
+        echo "\n";
         $brandName = trim($p['Brand'] ?? 'Без бренду');
 
         $brandId = findBrand($brandName);
