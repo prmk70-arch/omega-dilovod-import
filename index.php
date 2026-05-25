@@ -223,17 +223,23 @@ function createProduct($code, $name, $brandId)
             'saveType' => 1,
             'header' => [
                 'id' => 0,
-                'owner' => 'catalogs.goods',
+                'code' => 0,
+                'isGroup' => 0,
 
                 'name' => [
-                    'uk' => $name,
-                    'ru' => $name
+                    'uk' => $name
                 ],
 
-                'mainUnit' => 1103600000000001,
+                'owner' => 'catalogs.goods',
+
+                'mainUnit' => '1103600000000001',
+
                 'tradeMark' => '1101600000001003',
+
                 'productNum' => $code,
+
                 'specQty' => 1,
+
                 'accPolicy' => '1201200000001002'
             ],
             'tableParts' => [
