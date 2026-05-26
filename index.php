@@ -215,14 +215,13 @@ function createBrand($name)
         'params' => [
             'saveType' => 1,
             'header' => [
-                'id' => 0,
-                'code' => 0,
+                'id' => 'catalogs.tradeMarks',
+                'code' => '',
                 'isGroup' => 0,
                 'name' => [
                     'uk' => $name,
                     'ru' => $name
-                ],
-                'owner' => 'catalogs.tradeMarks'
+                ]
             ],
             'tableParts' => []
         ]
@@ -232,7 +231,8 @@ function createBrand($name)
         return $res['id'];
     }
 
-    die("BRAND CREATE ERROR:\n" . print_r($res, true));
+    // fallback
+    return '1101600000001477'; // Без бренду
 }
 
 function createProduct($code, $name, $brandId)
