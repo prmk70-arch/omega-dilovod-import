@@ -14,6 +14,12 @@ const PERSON_ID    = '1100100000001002';
 const STORAGE_ID   = '1100700000000001'; // Основний склад
 const BUSINESS_ID  = '1115000000000001';
 const CONTRACT_ID  = '1103000000001024';
+const SUPPLIERS = [
+    'bd6962e2-4870-11e6-80c3-005056a817fa' => [
+        'person' => '1100100000001002',
+        'contract' => '1103000000001024'
+    ],
+];
 const CURRENCY_ID  = '1101200000001001';
 const DOCMODE_ID   = '1004000000000343';
 
@@ -272,6 +278,14 @@ function importDocument($docId)
     }
 
     $omega = $headerRes['Data'];
+    $supplierKey = $omega['Customer']['Key'] ?? '';
+
+if (!isset(SUPPLIERS[$supplierKey])) {
+    die("UNKNOWN SUPPLIER: " . $supplierKey);
+}
+
+$personId = SUPPLIERS[$supplierKey]['person'];
+$contractId = SUPPLIERS[$supplierKey]['contract'];
     
     print_r($omega);
     die();
@@ -354,8 +368,8 @@ function importDocument($docId)
                 'firm' => FIRM_ID,
                 'business' => BUSINESS_ID,
                 'storage' => STORAGE_ID,
-                'person' => PERSON_ID,
-                'contract' => CONTRACT_ID,
+                'person' => $personId,
+                'contract' => $contractId,
                 'currency' => CURRENCY_ID,
                 'amountCur' => $omega['Summ'],
                 'rate' => 1,
