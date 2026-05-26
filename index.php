@@ -164,18 +164,17 @@ function findProduct($code)
             'fields' => [
                 'id' => 'id',
                 'productNum' => 'productNum'
-            ],
-            'filters' => [
-                [
-                    'alias' => 'productNum',
-                    'operator' => '=',
-                    'value' => $code
-                ]
             ]
         ]
     ]);
 
-    return $res[0]['id'] ?? false;
+    foreach ($res as $row) {
+        if (trim((string)($row['productNum'] ?? '')) === trim((string)$code)) {
+            return $row['id'];
+        }
+    }
+
+    return false;
 }
 
 function findBrand($name)
