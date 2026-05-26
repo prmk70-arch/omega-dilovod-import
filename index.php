@@ -388,13 +388,14 @@ foreach ($list['Data']['Result'] as $doc) {
         continue;
     }
 
-    $number = $header['Data']['Number'];
+    $number = trim((string)$header['Data']['Number']);
+    $number = preg_replace('/\s+/u', ' ', $number);
 
-    if (in_array($number, $processed, true)) {
+    if (isset($processed[$number])) {
         continue;
     }
 
-    $processed[] = $number;
+    $processed[$number] = true;
 
     importDocument($doc['Id']);
 }
