@@ -291,6 +291,7 @@ if (!isset(SUPPLIERS[$supplierKey])) {
     die("UNKNOWN SUPPLIER: " . $supplierKey);
 }
 
+$firmId = SUPPLIERS[$supplierKey]['firm'];
 $personId = SUPPLIERS[$supplierKey]['person'];
 $contractId = SUPPLIERS[$supplierKey]['contract'];
     
