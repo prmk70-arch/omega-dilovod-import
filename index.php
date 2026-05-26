@@ -292,8 +292,6 @@ if (!isset(SUPPLIERS[$supplierKey])) {
 $personId = SUPPLIERS[$supplierKey]['person'];
 $contractId = SUPPLIERS[$supplierKey]['contract'];
     
-    print_r($omega);
-    die();
     $products = $productsRes['Data'];
 
     if (findDocumentByNumber($omega['Number'])) {
