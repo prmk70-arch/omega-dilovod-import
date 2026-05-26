@@ -330,7 +330,8 @@ $contractId = SUPPLIERS[$supplierKey]['contract'];
         $goodId = findProduct($code);
 
         if (!$goodId) {
-        $goodId = createProduct($code, $name, $brandId);
+            echo "PRODUCT NOT FOUND: {$code} {$name}\n";
+            continue;
         }
 
         $tpGoods[] = [
