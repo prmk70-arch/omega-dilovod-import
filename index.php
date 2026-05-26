@@ -388,14 +388,18 @@ foreach ($list['Data']['Result'] as $doc) {
         continue;
     }
 
-    $number = trim((string)$header['Data']['Number']);
-    $number = preg_replace('/\s+/u', ' ', $number);
+    $number = (string)$header['Data']['Number'];
+    $key = md5($number);
 
-    if (isset($processed[$number])) {
+    if (isset($processed[$key])) {
         continue;
     }
 
-    $processed[$number] = true;
+    $processed[$key] = true;
+
+    if (findDocumentByNumber($number)) {
+        continue;
+    }
 
     importDocument($doc['Id']);
 }
