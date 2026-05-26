@@ -272,6 +272,9 @@ function importDocument($docId)
     }
 
     $omega = $headerRes['Data'];
+    
+    print_r($omega);
+    die();
     $products = $productsRes['Data'];
 
     if (findDocumentByNumber($omega['Number'])) {
