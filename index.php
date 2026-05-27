@@ -52,9 +52,17 @@ function postJson($url, $data)
         die(curl_error($ch));
     }
 
+    echo "RAW RESPONSE:\n";
+    var_dump($response);
+
     curl_close($ch);
 
-    return json_decode($response, true);
+    $decoded = json_decode($response, true);
+
+    echo "\nDECODED:\n";
+    print_r($decoded);
+
+    die();
 }
 
 function dilovod($packet, $apiKey = null)
