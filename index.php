@@ -324,19 +324,44 @@ $isSecondFirm = ($firmId === '1100400000001001');
         }
     }
 
-        $brandId = findBrand($brandName);
+     if ($isSecondFirm) {
+         $goodId = findProductGlobal($code);
+     } else {
+         $brandId = findBrand($brandName);
 
-        if (!$brandId) {
-        $brandId = createBrand($brandName);
+         if (!$brandId) {
+             $brandId = createBrand($brandName);
+         }
+
+         $goodId = findProduct($code);
+    }
+
+    if (!$goodId) {
+       echo "PRODUCT NOT FOUND: {$code} {$name}\n";
+       continue;
+    }
+        function findProductGlobal($code)
+{
+    $res = dilovod([
+        'action' => 'request',
+        'params' => [
+            'from' => 'catalogs.goods',
+            'fields' => [
+                'id' => 'id',
+                'productNum' => 'productNum'
+            ]
+        ]
+    ]);
+
+    foreach ($res as $row) {
+        if (trim((string)($row['productNum'] ?? '')) === trim($code)) {
+            return $row['id'];
         }
+    }
 
-        $goodId = findProduct($code);
-
-        if (!$goodId) {
-            echo "PRODUCT NOT FOUND: {$code} {$name}\n";
-            continue;
-        }
-
+    return false;
+}
+        
         $tpGoods[] = [
             'rowNum' => (string)$row,
             'good' => $goodId,
