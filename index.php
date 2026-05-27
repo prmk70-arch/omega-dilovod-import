@@ -437,9 +437,9 @@ foreach ($list['Data']['Result'] as $doc) {
 
     $processed[$key] = true;
 
-    if (findDocumentByNumber($number)) {
-        continue;
-    }
+    // if (findDocumentByNumber($number)) {
+    //     continue;
+    // }
 
     importDocument($doc['Id']);
 }
