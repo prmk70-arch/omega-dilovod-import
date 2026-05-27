@@ -18,14 +18,16 @@ const SUPPLIERS = [
     'bd6962e2-4870-11e6-80c3-005056a817fa' => [
         'firm' => '1100400000001002',
         'person' => '1100100000001002',
-        'contract' => '1103000000001024'
+        'contract' => '1103000000001024',
+        'apiKey' => 'DILOVOD_API_KEY'
     ],
 
-     'bd6962e8-4870-11e6-80c3-005056a817fa' => [
-     'firm' => '1100400000001001',
-     'person' => '1100100000001252',
-     'contract' => '1103000000001097'
-     ],
+    'bd6962e8-4870-11e6-80c3-005056a817fa' => [
+        'firm' => '1100400000001001',
+        'person' => '1100100000001252',
+        'contract' => '1103000000001097',
+        'apiKey' => 'DILOVOD_API_KEY_2'
+    ],
 ];
 const CURRENCY_ID  = '1101200000001001';
 const DOCMODE_ID   = '1004000000000343';
@@ -55,12 +57,14 @@ function postJson($url, $data)
     return json_decode($response, true);
 }
 
-function dilovod($packet)
+function dilovod($packet, $apiKey = null)
 {
-    global $dilovodKey;
+    if (!$apiKey) {
+        $apiKey = getenv('DILOVOD_API_KEY');
+    }
 
     $packet['version'] = '0.25';
-    $packet['key'] = $dilovodKey;
+    $packet['key'] = $apiKey;
 
     $ch = curl_init('https://api.dilovod.ua');
 
@@ -173,7 +177,7 @@ function findProduct($code)
                 ]
             ]
         ]
-    ]);
+    ]);], getenv('DILOVOD_API_KEY'));
 
     print_r($res);
 
@@ -191,7 +195,7 @@ function findBrand($name)
                 'name' => 'name'
             ]
         ]
-    ]);
+    ], getenv('DILOVOD_API_KEY'));
 
     foreach ($res as $row) {
         $brandName = '';
@@ -227,7 +231,7 @@ function createBrand($name)
             ],
             'tableParts' => []
         ]
-    ]);
+    ], getenv('DILOVOD_API_KEY'));
 
     if (!empty($res['id'])) {
         return $res['id'];
@@ -267,7 +271,7 @@ function createProduct($code, $name, $brandId)
                 'tpOperations' => []
             ]
         ]
-    ]);
+    ]);], getenv('DILOVOD_API_KEY'));
 
     if (!empty($res['id'])) {
         return $res['id'];
@@ -296,6 +300,7 @@ if (!isset(SUPPLIERS[$supplierKey])) {
 $firmId = SUPPLIERS[$supplierKey]['firm'];
 $personId = SUPPLIERS[$supplierKey]['person'];
 $contractId = SUPPLIERS[$supplierKey]['contract'];
+$docApiKey = getenv(SUPPLIERS[$supplierKey]['apiKey']);    
 $isSecondFirm = ($firmId === '1100400000001001');    
     
     $products = $productsRes['Data'];
