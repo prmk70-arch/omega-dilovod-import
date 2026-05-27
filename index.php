@@ -193,9 +193,19 @@ function findBrand($name)
             'fields' => [
                 'id' => 'id',
                 'name' => 'name'
+            ],
+            'filters' => [
+                [
+                    'alias' => 'name',
+                    'operator' => '=',
+                    'value' => $name
+                ]
             ]
         ]
     ], getenv('DILOVOD_API_KEY'));
+
+    return $res[0]['id'] ?? false;
+}
 
     foreach ($res as $row) {
         $brandName = '';
