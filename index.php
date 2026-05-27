@@ -424,7 +424,7 @@ $isSecondFirm = ($firmId === '1100400000001001');
                 'tpGoods' => $tpGoods
             ]
         ]
-    ]);
+    ], $docApiKey);
 
     print_r($doc);
     echo "\n";
