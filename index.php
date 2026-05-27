@@ -163,21 +163,21 @@ function findProduct($code)
             'from' => 'catalogs.goods',
             'fields' => [
                 'id' => 'id',
-                'productNum' => 'productNum',
-                'name' => 'name'
+                'productNum' => 'productNum'
+            ],
+            'filters' => [
+                [
+                    'alias' => 'productNum',
+                    'operator' => '=',
+                    'value' => trim($code)
+                ]
             ]
         ]
     ]);
 
-    echo "GOODS COUNT: " . count($res) . "\n";
+    print_r($res);
 
-    foreach ($res as $row) {
-        if (($row['productNum'] ?? '') === $code) {
-            return $row['id'];
-        }
-    }
-
-    return false;
+    return $res[0]['id'] ?? false;
 }
 
 function findBrand($name)
