@@ -57,12 +57,8 @@ function postJson($url, $data)
     return json_decode($response, true);
 }
 
-function dilovod($packet, $apiKey = null)
+function dilovod($packet, $apiKey)
 {
-    if (!$apiKey) {
-        $apiKey = getenv('DILOVOD_API_KEY');
-    }
-
     $packet['version'] = '0.25';
     $packet['key'] = $apiKey;
 
