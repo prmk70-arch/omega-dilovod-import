@@ -417,9 +417,6 @@ $isSecondFirm = ($firmId === '1100400000001001');
 
 $list = omegaList();
 
-print_r($list);
-die();
-
 $processed = [];
 
 foreach ($list['Data']['Result'] as $doc) {
