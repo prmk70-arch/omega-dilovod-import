@@ -177,7 +177,7 @@ function findProduct($code)
                 ]
             ]
         ]
-    ]);], getenv('DILOVOD_API_KEY'));
+    ], getenv('DILOVOD_API_KEY'));
 
     print_r($res);
 
@@ -247,7 +247,6 @@ function createBrand($name)
         return $res['id'];
     }
 
-    // fallback
     return '1101600000001477'; // Без бренду
 }
 
@@ -259,17 +258,13 @@ function createProduct($code, $name, $brandId)
             'saveType' => 1,
             'header' => [
                 'id' => 'catalogs.goods',
-
                 'code' => '',
                 'productNum' => $code,
-
                 'isGroup' => 0,
-
                 'name' => [
                     'uk' => $name,
                     'ru' => $name
                 ],
-
                 'mainUnit' => '1103600000000001',
                 'tradeMark' => $brandId,
                 'accPolicy' => '1201200000001002',
@@ -281,7 +276,7 @@ function createProduct($code, $name, $brandId)
                 'tpOperations' => []
             ]
         ]
-    ]);], getenv('DILOVOD_API_KEY'));
+    ], getenv('DILOVOD_API_KEY'));
 
     if (!empty($res['id'])) {
         return $res['id'];
