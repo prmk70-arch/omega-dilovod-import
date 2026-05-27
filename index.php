@@ -296,6 +296,7 @@ if (!isset(SUPPLIERS[$supplierKey])) {
 $firmId = SUPPLIERS[$supplierKey]['firm'];
 $personId = SUPPLIERS[$supplierKey]['person'];
 $contractId = SUPPLIERS[$supplierKey]['contract'];
+$isSecondFirm = ($firmId === '1100400000001001');    
     
     $products = $productsRes['Data'];
 
