@@ -232,7 +232,9 @@ function createBrand($name)
         return $res['id'];
     }
 
-    return '1101600000001477'; // Без бренду
+    print_r($res);
+
+    return '1101600000001477';
 }
 
 function createProduct($code, $name, $brandId)
