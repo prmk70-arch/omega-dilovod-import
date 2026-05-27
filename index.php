@@ -417,7 +417,6 @@ $list = omegaList();
 
 print_r($list);
 die();
-}
 
 $processed = [];
 
