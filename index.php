@@ -415,8 +415,8 @@ $isSecondFirm = ($firmId === '1100400000001001');
 
 $list = omegaList();
 
-if (empty($list['Success']) || empty($list['Data']['Result'])) {
-    die("NO DOCUMENTS\n");
+print_r($list);
+die();
 }
 
 $processed = [];
