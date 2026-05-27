@@ -161,6 +161,8 @@ return false;
 
 function findProduct($code)
 {
+    echo "KEY: " . getenv('DILOVOD_API_KEY') . "\n";
+
     $res = dilovod([
         'action' => 'request',
         'params' => [
@@ -168,20 +170,13 @@ function findProduct($code)
             'fields' => [
                 'id' => 'id',
                 'productNum' => 'productNum'
-            ],
-            'filters' => [
-                [
-                    'alias' => 'productNum',
-                    'operator' => '=',
-                    'value' => trim($code)
-                ]
             ]
         ]
     ], getenv('DILOVOD_API_KEY'));
 
     print_r($res);
 
-    return $res[0]['id'] ?? false;
+    die();
 }
 
 function findBrand($name)
