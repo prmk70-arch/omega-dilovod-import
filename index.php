@@ -206,24 +206,7 @@ function findBrand($name)
 
     return $res[0]['id'] ?? false;
 }
-
-    foreach ($res as $row) {
-        $brandName = '';
-
-        if (is_array($row['name'] ?? null)) {
-            $brandName = $row['name']['uk'] ?? $row['name']['ru'] ?? '';
-        } else {
-            $brandName = $row['name'] ?? '';
-        }
-
-        if (mb_strtoupper(trim($brandName)) === mb_strtoupper(trim($name))) {
-            return $row['id'];
-        }
-    }
-
-    return false;
-}
-
+  
 function createBrand($name)
 {
     $res = dilovod([
