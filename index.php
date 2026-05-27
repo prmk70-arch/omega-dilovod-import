@@ -91,7 +91,7 @@ function omegaList()
 {
     global $omegaKey;
 
-    $start = date('d.m.Y', strtotime('-3 days'));
+    $start = date('d.m.Y', strtotime('-14 days'));
     $end   = date('d.m.Y');
 
     return postJson(
