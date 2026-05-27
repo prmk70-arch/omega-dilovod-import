@@ -163,13 +163,16 @@ function findProduct($code)
             'from' => 'catalogs.goods',
             'fields' => [
                 'id' => 'id',
-                'productNum' => 'productNum'
+                'productNum' => 'productNum',
+                'name' => 'name'
             ]
         ]
     ]);
 
+    echo "GOODS COUNT: " . count($res) . "\n";
+
     foreach ($res as $row) {
-        if (trim((string)($row['productNum'] ?? '')) === trim((string)$code)) {
+        if (($row['productNum'] ?? '') === $code) {
             return $row['id'];
         }
     }
