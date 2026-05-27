@@ -145,14 +145,14 @@ function findDocumentByNumber($number)
                 ]
             ]
         ]
-    ]);
+    ], getenv('DILOVOD_API_KEY'));
 
     if (!empty($res[0]['id'])) {
-    echo "SKIP EXISTS: $number\n";
-    return true;
-}
+        echo "SKIP EXISTS: $number\n";
+        return true;
+    }
 
-return false;
+    return false;
 }
 
 function findProduct($code)
