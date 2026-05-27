@@ -274,19 +274,21 @@ function createProduct($code, $name, $brandId)
 function importDocument($docId)
 {
     $headerRes = omegaHeader($docId);
-    $productsRes = omegaProducts($docId);
 
-    if (empty($headerRes['Success']) || empty($productsRes['Success'])) {
+    if (empty($headerRes['Success'])) {
         echo "OMEGA ERROR: $docId\n";
         return;
     }
 
     $omega = $headerRes['Data'];
+
+    $products = $omega['Products'] ?? [];
+
     $supplierKey = $omega['Customer']['Key'] ?? '';
 
-if (!isset(SUPPLIERS[$supplierKey])) {
-    die("UNKNOWN SUPPLIER: " . $supplierKey);
-}
+    if (!isset(SUPPLIERS[$supplierKey])) {
+        die("UNKNOWN SUPPLIER: " . $supplierKey);
+    }
 
 $firmId = SUPPLIERS[$supplierKey]['firm'];
 $personId = SUPPLIERS[$supplierKey]['person'];
