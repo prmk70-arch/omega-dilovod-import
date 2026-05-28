@@ -289,13 +289,14 @@ $isSecondFirm = ($firmId === '1100400000001001');
     $tpGoods = [];
     $row = 1;
 
-    foreach ($products as $p) {
-        $code = trim($p['Code']);
-        $name = trim($p['ProductDescrition']);
-        $qty = (float)$p['Count'];
-        $price = (float)$p['PiceWithVAT'];
+  foreach ($products as $p) {
 
-        $brandName = trim($p['Brand'] ?? '');
+    $code = trim($p['Code']);
+    $name = trim($p['ProductDescrition']);
+    $qty = (float)$p['Count'];
+    $price = (float)$p['PiceWithVAT'];
+
+    $brandName = trim($p['Brand'] ?? '');
 
     if (!$brandName) {
         if (preg_match('/\(пр-во\s+([^)]+)\)/ui', $p['ProductDescrition'], $m)) {
@@ -304,6 +305,31 @@ $isSecondFirm = ($firmId === '1100400000001001');
             $brandName = 'Без бренду';
         }
     }
+
+    // TEMP TEST
+    $brandId = '1101600000001477';
+
+    // K17305
+    $goodId = '1101500000000001';
+
+    $tpGoods[] = [
+        'rowNum' => (string)$row,
+        'good' => $goodId,
+        'price' => number_format($price, 5, '.', ''),
+        'qty' => number_format($qty, 3, '.', ''),
+        'baseQty' => number_format($qty, 3, '.', ''),
+        'priceAmount' => round($price * $qty, 2),
+        'unit' => '1103600000000001',
+        'ratio' => '1.0000',
+        'discount' => '0.00',
+        'discountPercent' => '0.0',
+        'amountCur' => round($price * $qty, 2),
+        'vatTax' => '1105800000000023',
+        'vatAmount' => '0.00'
+    ];
+
+    $row++;
+}
 
      if ($isSecondFirm) {
          $goodId = findProductGlobal($code);
