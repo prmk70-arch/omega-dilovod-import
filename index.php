@@ -167,65 +167,12 @@ function findBrand($name)
   
 function createBrand($name)
 {
-    $res = dilovod([
-        'action' => 'saveObject',
-        'params' => [
-            'saveType' => 1,
-            'header' => [
-                'id' => 'catalogs.tradeMarks',
-                'code' => '',
-                'isGroup' => 0,
-                'name' => [
-                    'uk' => $name,
-                    'ru' => $name
-                ]
-            ],
-            'tableParts' => []
-        ]
-    ], getenv('DILOVOD_API_KEY'));
-
-    if (!empty($res['id'])) {
-        return $res['id'];
-    }
-
-    print_r($res);
-
     return '1101600000001477';
 }
 
 function createProduct($code, $name, $brandId)
 {
-    $res = dilovod([
-        'action' => 'saveObject',
-        'params' => [
-            'saveType' => 1,
-            'header' => [
-                'id' => 'catalogs.goods',
-                'code' => '',
-                'productNum' => $code,
-                'isGroup' => 0,
-                'name' => [
-                    'uk' => $name,
-                    'ru' => $name
-                ],
-                'mainUnit' => '1103600000000001',
-                'tradeMark' => $brandId,
-                'accPolicy' => '1201200000001002',
-                'specQty' => 1
-            ],
-            'tableParts' => [
-                'tpGoods' => [],
-                'tpReplacements' => [],
-                'tpOperations' => []
-            ]
-        ]
-    ], getenv('DILOVOD_API_KEY'));
-
-    if (!empty($res['id'])) {
-        return $res['id'];
-    }
-
-    die("PRODUCT CREATE ERROR:\n" . print_r($res, true));
+    return '1101500000000001';
 }
 
 function importDocument($docId)
