@@ -259,8 +259,12 @@ $isSecondFirm = ($firmId === '1100400000001001');
     $brandId = '1101600000001477';
 
     // K17305
-    $goodId = '1101500000000001';
+    $goodId = findProduct($code);
 
+if (!$goodId) {
+    echo "PRODUCT NOT FOUND: {$code}\n";
+    continue;
+              }
     $tpGoods[] = [
         'rowNum' => (string)$row,
         'good' => $goodId,
