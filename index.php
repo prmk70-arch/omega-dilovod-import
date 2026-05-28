@@ -248,25 +248,8 @@ $isSecondFirm = ($firmId === '1100400000001001');
         'vatTax' => '1105800000000023',
         'vatAmount' => '0.00'
     ];
-        function findProductGlobal($code)
+       function findProductGlobal($code)
 {
-    $res = dilovod([
-        'action' => 'request',
-        'params' => [
-            'from' => 'catalogs.goods',
-            'fields' => [
-                'id' => 'id',
-                'productNum' => 'productNum'
-            ]
-        ]
-    ]);
-
-    foreach ($res as $row) {
-        if (trim((string)($row['productNum'] ?? '')) === trim($code)) {
-            return $row['id'];
-        }
-    }
-
     return false;
 }
         
