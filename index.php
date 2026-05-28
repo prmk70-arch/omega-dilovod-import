@@ -334,15 +334,17 @@ $isSecondFirm = ($firmId === '1100400000001001');
      if ($isSecondFirm) {
          $goodId = findProductGlobal($code);
      } else {
-         $brandId = findBrand($brandName);
+        // $brandId = findBrand($brandName);
 
-         if (!$brandId) {
-             $brandId = createBrand($brandName);
-         }
+         //if (!$brandId) {
+       //      $brandId = createBrand($brandName);
+       //  }
 
-         $goodId = findProduct($code);
-    }
-
+      //   $goodId = findProduct($code);
+  //  }
+$brandId = '1101600000001477';
+$goodId = '1101500000000001';
+         
     if (!$goodId) {
        echo "PRODUCT NOT FOUND: {$code} {$name}\n";
        continue;
