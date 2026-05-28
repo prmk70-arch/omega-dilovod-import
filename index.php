@@ -157,38 +157,12 @@ function findDocumentByNumber($number)
 
 function findProduct($code)
 {
-    $res = dilovod([
-        'action' => 'request',
-        'params' => [
-            'from' => 'catalogs',
-        ]
-    ], getenv('DILOVOD_API_KEY'));
-
-    print_r($res);
-    die();
+    return false;
 }
 
 function findBrand($name)
 {
-    $res = dilovod([
-        'action' => 'request',
-        'params' => [
-            'from' => 'catalogs.tradeMarks',
-            'fields' => [
-                'id' => 'id',
-                'name' => 'name'
-            ],
-            'filters' => [
-                [
-                    'alias' => 'name',
-                    'operator' => '=',
-                    'value' => $name
-                ]
-            ]
-        ]
-    ], getenv('DILOVOD_API_KEY'));
-
-    return $res[0]['id'] ?? false;
+    return false;
 }
   
 function createBrand($name)
