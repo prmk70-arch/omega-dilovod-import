@@ -327,28 +327,6 @@ $isSecondFirm = ($firmId === '1100400000001001');
         'vatTax' => '1105800000000023',
         'vatAmount' => '0.00'
     ];
-
-    $row++;
-}
-
-     if ($isSecondFirm) {
-         $goodId = findProductGlobal($code);
-     } else {
-        // $brandId = findBrand($brandName);
-
-         //if (!$brandId) {
-       //      $brandId = createBrand($brandName);
-       //  }
-
-      //   $goodId = findProduct($code);
-  //  }
-$brandId = '1101600000001477';
-$goodId = '1101500000000001';
-         
-    if (!$goodId) {
-       echo "PRODUCT NOT FOUND: {$code} {$name}\n";
-       continue;
-    }
         function findProductGlobal($code)
 {
     $res = dilovod([
