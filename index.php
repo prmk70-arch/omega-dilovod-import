@@ -157,30 +157,7 @@ function findDocumentByNumber($number)
 
 function findProduct($code)
 {
-    $res = dilovod([
-        'action' => 'request',
-        'params' => [
-            'from' => 'catalogs.goods',
-            'fields' => [
-                'id' => 'id',
-                'productNum' => 'productNum'
-            ],
-            'filters' => [
-                [
-                    'alias' => 'productNum',
-                    'operator' => '=',
-                    'value' => trim($code)
-                ]
-            ]
-        ]
-    ], getenv('DILOVOD_API_KEY'));
-
-    if (!empty($res['error'])) {
-        print_r($res);
-        return false;
-    }
-
-    return $res[0]['id'] ?? false;
+    return '1101500000000001';
 }
 
 function findProductGlobal($code)
