@@ -258,10 +258,7 @@ $isSecondFirm = ($firmId === '1100400000001001');
     // TEMP TEST
     $brandId = '1101600000001477';
 
-    // K17305
-    $goodId = findProduct('K17305');
-var_dump($goodId);
-die();
+        $goodId = findProduct($code);
       
 if (!$goodId) {
     echo "PRODUCT NOT FOUND: {$code}\n";
