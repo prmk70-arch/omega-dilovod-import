@@ -157,7 +157,7 @@ function findDocumentByNumber($number)
 
 function findProduct($code)
 {
-    $apiKey = getenv('DILOVOD_API_KEY');
+    $apiKey = getenv('f9XZB2H5ZyBBmwMjO3O3MxSH0emizd');
 
     echo "KEY:\n";
     var_dump($apiKey);
