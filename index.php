@@ -160,6 +160,11 @@ function findProduct($code)
     return false;
 }
 
+       function findProductGlobal($code)
+{
+    return false;
+}
+
 function findBrand($name)
 {
     return false;
@@ -248,10 +253,6 @@ $isSecondFirm = ($firmId === '1100400000001001');
         'vatTax' => '1105800000000023',
         'vatAmount' => '0.00'
     ];
-       function findProductGlobal($code)
-{
-    return false;
-}
         
         $tpGoods[] = [
             'rowNum' => (string)$row,
