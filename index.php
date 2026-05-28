@@ -167,7 +167,7 @@ function findProductGlobal($code)
 
 function findBrand($name)
 {
-    return false;
+    return '1101600000001477';
 }
   
 function createBrand($name)
