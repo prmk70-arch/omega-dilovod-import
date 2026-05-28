@@ -157,32 +157,14 @@ function findDocumentByNumber($number)
 
 function findProduct($code)
 {
-    $apiKey = getenv('f9XZB2H5ZyBBmwMjO3O3MxSH0emizd');
-
-    echo "KEY:\n";
-    var_dump($apiKey);
-
     $res = dilovod([
         'action' => 'request',
         'params' => [
-            'from' => 'catalogs.goods',
-            'fields' => [
-                'id' => 'id',
-                'productNum' => 'productNum'
-            ],
-            'filters' => [
-                [
-                    'alias' => 'productNum',
-                    'operator' => '=',
-                    'value' => trim($code)
-                ]
-            ]
+            'from' => 'catalogs',
         ]
-    ], $apiKey);
+    ], getenv('DILOVOD_API_KEY'));
 
-    echo "\nRESULT:\n";
     print_r($res);
-
     die();
 }
 
