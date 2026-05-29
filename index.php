@@ -243,7 +243,7 @@ function importDocument($docId)
             'analytics6' => 0,
             'analytics7' => 0,
             'analytics8' => 0,
-            'vatTax' => '1105800000000023',
+            // 'vatTax' => '1105800000000023',
             'vatAmount' => '0.00'
         ];
 
@@ -272,10 +272,10 @@ function importDocument($docId)
                 'amountCur' => $omega['Summ'],
                 'rate' => 1,
                 'taxAccount' => 1,
-                'paymentForm' => '1110300000000001',
-                'department' => '1101900000000001',
-                'state' => '1111500000000005',
-                'docMode' => DOCMODE_ID,
+                // 'paymentForm' => '1110300000000001',
+                // 'department' => '1101900000000001',
+                // 'state' => '1111500000000005',
+                // 'docMode' => DOCMODE_ID,
                 'posted' => 0
             ],
             'tableParts' => [
