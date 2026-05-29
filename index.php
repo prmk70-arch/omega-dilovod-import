@@ -169,6 +169,7 @@ function createProduct($code, $name, $brandId)
 
 function importDocument($docId)
 {
+    echo "START IMPORT: {$docId}\n";
     $headerRes = omegaHeader($docId);
     $productsRes = omegaProducts($docId);
 
@@ -275,7 +276,7 @@ function importDocument($docId)
         ]
     ]);
 
-   // print_r($doc);
+    print_r($doc);
     echo "\n";
 }
 
@@ -307,6 +308,7 @@ foreach ($list['Data']['Result'] as $doc) {
         continue;
     }
 
+    echo "IMPORT DOCUMENT: {$number}\n";  
     importDocument($doc['Id']);
 }
 
