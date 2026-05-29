@@ -263,6 +263,12 @@ print_r([
     'docMode' => DOCMODE_ID,
 ]);
     
+    echo "BEFORE SAVE DOCUMENT\n";
+
+echo "TP GOODS:\n";
+print_r($tpGoods);
+die();
+
     $doc = dilovod([
         'action' => 'saveObject',
         'params' => [
