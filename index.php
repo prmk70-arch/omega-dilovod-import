@@ -316,9 +316,7 @@ print_r([
                 // 'docMode' => DOCMODE_ID,
                 'posted' => 0
             ],
-            'tableParts' => [
-                'tpGoods' => $tpGoods
-            ]
+            'tableParts' => []
         ]
     ]);
 
