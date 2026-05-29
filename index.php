@@ -219,6 +219,8 @@ function importDocument($docId)
         $goodId = createProduct($code, $name, $brandId);
         }
 
+        echo "AFTER PRODUCT\n";
+        
         $tpGoods[] = [
             'rowNum' => (string)$row,
             'good' => $goodId,
