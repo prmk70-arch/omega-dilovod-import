@@ -298,24 +298,9 @@ print_r([
             'saveType' => 1,
             'header' => [
                 'id' => 'documents.purchase',
-                'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
-                'originalNumber' => $omega['Number'],
-                'originalDate' => date('Y-m-d H:i:s', strtotime($omega['Date'])),   
-                'firm' => FIRM_ID,
-                'business' => BUSINESS_ID,
-                'storage' => STORAGE_ID,
-                'person' => PERSON_ID,
-                'contract' => CONTRACT_ID,
-                'currency' => CURRENCY_ID,
-                'amountCur' => $omega['Summ'],
-                'rate' => 1,
-                'taxAccount' => 1,
-                // 'paymentForm' => '1110300000000001',
-                // 'department' => '1101900000000001',
-                // 'state' => '1111500000000005',
-                // 'docMode' => DOCMODE_ID,
-                'posted' => 0
-            ],
+    'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
+    'originalNumber' => $omega['Number'],
+],
             'tableParts' => []
         ]
     ]);
