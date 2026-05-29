@@ -275,7 +275,7 @@ function importDocument($docId)
         ]
     ]);
 
-    print_r($doc);
+   // print_r($doc);
     echo "\n";
 }
 
