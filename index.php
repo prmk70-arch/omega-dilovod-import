@@ -247,9 +247,13 @@ function importDocument($docId)
             'vatAmount' => '0.00'
         ];
 
+        echo "AFTER TPGOODS\n";
+
         $row++;
     }
 
+    echo "BEFORE SAVE DOCUMENT\n";
+    
     $doc = dilovod([
         'action' => 'saveObject',
         'params' => [
