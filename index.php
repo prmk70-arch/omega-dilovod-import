@@ -142,6 +142,11 @@ function findDocumentByNumber($number)
 return false;
 }
 
+function findProduct($code)
+{
+    return '1101500000000001';
+}
+
 function findProductGlobal($code)
 {
     return '1101500000000001';
