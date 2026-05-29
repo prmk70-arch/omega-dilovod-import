@@ -142,27 +142,9 @@ function findDocumentByNumber($number)
 return false;
 }
 
-function findProduct($code)
+function findProductGlobal($code)
 {
-    $res = dilovod([
-        'action' => 'request',
-        'params' => [
-            'from' => 'catalogs.goods',
-            'fields' => [
-                'id' => 'id',
-                'productNum' => 'productNum'
-            ],
-            'filters' => [
-                [
-                    'alias' => 'productNum',
-                    'operator' => '=',
-                    'value' => $code
-                ]
-            ]
-        ]
-    ]);
-
-    return $res[0]['id'] ?? false;
+    return '1101500000000001';
 }
 
 function findBrand($name)
