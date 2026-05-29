@@ -167,61 +167,13 @@ function findProduct($code)
 
 function findBrand($name)
 {
-    $res = dilovod([
-        'action' => 'request',
-        'params' => [
-            'from' => 'catalogs.tradeMarks',
-            'fields' => [
-                'id' => 'id',
-                'name' => 'name'
-            ]
-        ]
-    ]);
-
-    foreach ($res as $row) {
-        $brandName = '';
-
-        if (is_array($row['name'] ?? null)) {
-            $brandName = $row['name']['uk'] ?? $row['name']['ru'] ?? '';
-        } else {
-            $brandName = $row['name'] ?? '';
-        }
-
-        if (mb_strtoupper(trim($brandName)) === mb_strtoupper(trim($name))) {
-            return $row['id'];
-        }
-    }
-
-    return false;
+    return '1101600000001477'; // Без бренду
 }
 
 function createBrand($name)
 {
-    $res = dilovod([
-        'action' => 'saveObject',
-        'params' => [
-            'saveType' => 1,
-            'header' => [
-                'id' => 0,
-                'code' => 0,
-                'isGroup' => 0,
-                'name' => [
-                    'uk' => $name,
-                    'ru' => $name
-                ],
-                'owner' => 'catalogs.tradeMarks'
-            ],
-            'tableParts' => []
-        ]
-    ]);
-
-    if (!empty($res['id'])) {
-        return $res['id'];
-    }
-
-    die("BRAND CREATE ERROR:\n" . print_r($res, true));
+    return '1101600000001477'; // Без бренду
 }
-
 function createProduct($code, $name, $brandId)
 {
     $res = dilovod([
