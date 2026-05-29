@@ -266,8 +266,8 @@ print_r([
     echo "BEFORE SAVE DOCUMENT\n";
 
 echo "TP GOODS:\n";
-print_r($tpGoods);
-die();
+// print_r($tpGoods);
+// die();
 
     echo "HEADER FULL:\n";
 
@@ -288,7 +288,7 @@ print_r([
     'paymentForm' => '1110300000000001',
     'department' => '1101900000000001',
     'state' => '1111500000000005',
-    'docMode' => DOCMODE_ID,
+    // 'docMode' => DOCMODE_ID,
     'posted' => 0
 ]);
    
