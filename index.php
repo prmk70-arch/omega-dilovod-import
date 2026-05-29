@@ -174,43 +174,10 @@ function createBrand($name)
 {
     return '1101600000001477'; // Без бренду
 }
+
 function createProduct($code, $name, $brandId)
 {
-    $res = dilovod([
-        'action' => 'saveObject',
-        'params' => [
-            'saveType' => 1,
-            'header' => [
-                'id' => 'catalogs.goods',
-
-                'code' => '',
-                'productNum' => $code,
-
-                'isGroup' => 0,
-
-                'name' => [
-                    'uk' => $name,
-                    'ru' => $name
-                ],
-
-                'mainUnit' => '1103600000000001',
-                'tradeMark' => $brandId,
-                'accPolicy' => '1201200000001002',
-                'specQty' => 1
-            ],
-            'tableParts' => [
-                'tpGoods' => [],
-                'tpReplacements' => [],
-                'tpOperations' => []
-            ]
-        ]
-    ]);
-
-    if (!empty($res['id'])) {
-        return $res['id'];
-    }
-
-    die("PRODUCT CREATE ERROR:\n" . print_r($res, true));
+    return '1101500000000001';
 }
 
 function importDocument($docId)
