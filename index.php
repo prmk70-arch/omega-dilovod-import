@@ -14,21 +14,6 @@ const PERSON_ID    = '1100100000001002';
 const STORAGE_ID   = '1100700000000001'; // Основний склад
 const BUSINESS_ID  = '1115000000000001';
 const CONTRACT_ID  = '1103000000001024';
-const SUPPLIERS = [
-    'bd6962e2-4870-11e6-80c3-005056a817fa' => [
-        'firm' => '1100400000001002',
-        'person' => '1100100000001002',
-        'contract' => '1103000000001024',
-        'apiKey' => 'DILOVOD_API_KEY'
-    ],
-
-    'bd6962e8-4870-11e6-80c3-005056a817fa' => [
-        'firm' => '1100400000001001',
-        'person' => '1100100000001252',
-        'contract' => '1103000000001097',
-        'apiKey' => 'DILOVOD_API_KEY_2'
-    ],
-];
 const CURRENCY_ID  = '1101200000001001';
 const DOCMODE_ID   = '1004000000000343';
 
@@ -57,10 +42,12 @@ function postJson($url, $data)
     return json_decode($response, true);
 }
 
-function dilovod($packet, $apiKey)
+function dilovod($packet)
 {
+    global $dilovodKey;
+
     $packet['version'] = '0.25';
-    $packet['key'] = $apiKey;
+    $packet['key'] = $dilovodKey;
 
     $ch = curl_init('https://api.dilovod.ua');
 
@@ -87,7 +74,7 @@ function omegaList()
 {
     global $omegaKey;
 
-    $start = date('d.m.Y', strtotime('-14 days'));
+    $start = date('d.m.Y', strtotime('-3 days'));
     $end   = date('d.m.Y');
 
     return postJson(
@@ -145,66 +132,146 @@ function findDocumentByNumber($number)
                 ]
             ]
         ]
-    ], getenv('DILOVOD_API_KEY'));
+    ]);
 
     if (!empty($res[0]['id'])) {
-        echo "SKIP EXISTS: $number\n";
-        return true;
+    echo "SKIP EXISTS: $number\n";
+    return true;
+}
+
+return false;
+}
+
+function findProduct($code)
+{
+    $res = dilovod([
+        'action' => 'request',
+        'params' => [
+            'from' => 'catalogs.goods',
+            'fields' => [
+                'id' => 'id',
+                'productNum' => 'productNum'
+            ],
+            'filters' => [
+                [
+                    'alias' => 'productNum',
+                    'operator' => '=',
+                    'value' => $code
+                ]
+            ]
+        ]
+    ]);
+
+    return $res[0]['id'] ?? false;
+}
+
+function findBrand($name)
+{
+    $res = dilovod([
+        'action' => 'request',
+        'params' => [
+            'from' => 'catalogs.tradeMarks',
+            'fields' => [
+                'id' => 'id',
+                'name' => 'name'
+            ]
+        ]
+    ]);
+
+    foreach ($res as $row) {
+        $brandName = '';
+
+        if (is_array($row['name'] ?? null)) {
+            $brandName = $row['name']['uk'] ?? $row['name']['ru'] ?? '';
+        } else {
+            $brandName = $row['name'] ?? '';
+        }
+
+        if (mb_strtoupper(trim($brandName)) === mb_strtoupper(trim($name))) {
+            return $row['id'];
+        }
     }
 
     return false;
 }
 
-function findProduct($code)
-{
-    return '1101500000000001';
-}
-
-function findProductGlobal($code)
-{
-    return false;
-}
-
-function findBrand($name)
-{
-    return '1101600000001477';
-}
-  
 function createBrand($name)
 {
-    return '1101600000001477';
+    $res = dilovod([
+        'action' => 'saveObject',
+        'params' => [
+            'saveType' => 1,
+            'header' => [
+                'id' => 0,
+                'code' => 0,
+                'isGroup' => 0,
+                'name' => [
+                    'uk' => $name,
+                    'ru' => $name
+                ],
+                'owner' => 'catalogs.tradeMarks'
+            ],
+            'tableParts' => []
+        ]
+    ]);
+
+    if (!empty($res['id'])) {
+        return $res['id'];
+    }
+
+    die("BRAND CREATE ERROR:\n" . print_r($res, true));
 }
 
 function createProduct($code, $name, $brandId)
 {
-    return '1101500000000001';
+    $res = dilovod([
+        'action' => 'saveObject',
+        'params' => [
+            'saveType' => 1,
+            'header' => [
+                'id' => 'catalogs.goods',
+
+                'code' => '',
+                'productNum' => $code,
+
+                'isGroup' => 0,
+
+                'name' => [
+                    'uk' => $name,
+                    'ru' => $name
+                ],
+
+                'mainUnit' => '1103600000000001',
+                'tradeMark' => $brandId,
+                'accPolicy' => '1201200000001002',
+                'specQty' => 1
+            ],
+            'tableParts' => [
+                'tpGoods' => [],
+                'tpReplacements' => [],
+                'tpOperations' => []
+            ]
+        ]
+    ]);
+
+    if (!empty($res['id'])) {
+        return $res['id'];
+    }
+
+    die("PRODUCT CREATE ERROR:\n" . print_r($res, true));
 }
 
 function importDocument($docId)
 {
     $headerRes = omegaHeader($docId);
+    $productsRes = omegaProducts($docId);
 
-    if (empty($headerRes['Success'])) {
+    if (empty($headerRes['Success']) || empty($productsRes['Success'])) {
         echo "OMEGA ERROR: $docId\n";
         return;
     }
 
     $omega = $headerRes['Data'];
-
-    $products = $omega['Products'] ?? [];
-
-    $supplierKey = $omega['Customer']['Key'] ?? '';
-
-    if (!isset(SUPPLIERS[$supplierKey])) {
-        die("UNKNOWN SUPPLIER: " . $supplierKey);
-    }
-
-$firmId = SUPPLIERS[$supplierKey]['firm'];
-$personId = SUPPLIERS[$supplierKey]['person'];
-$contractId = SUPPLIERS[$supplierKey]['contract'];
-$docApiKey = getenv(SUPPLIERS[$supplierKey]['apiKey']);    
-$isSecondFirm = ($firmId === '1100400000001001');    
-    
     $products = $productsRes['Data'];
 
     if (findDocumentByNumber($omega['Number'])) {
@@ -215,14 +282,13 @@ $isSecondFirm = ($firmId === '1100400000001001');
     $tpGoods = [];
     $row = 1;
 
-  foreach ($products as $p) {
+    foreach ($products as $p) {
+        $code = trim($p['Code']);
+        $name = trim($p['ProductDescrition']);
+        $qty = (float)$p['Count'];
+        $price = (float)$p['PiceWithVAT'];
 
-    $code = trim($p['Code']);
-    $name = trim($p['ProductDescrition']);
-    $qty = (float)$p['Count'];
-    $price = (float)$p['PiceWithVAT'];
-
-    $brandName = trim($p['Brand'] ?? '');
+        $brandName = trim($p['Brand'] ?? '');
 
     if (!$brandName) {
         if (preg_match('/\(пр-во\s+([^)]+)\)/ui', $p['ProductDescrition'], $m)) {
@@ -232,32 +298,18 @@ $isSecondFirm = ($firmId === '1100400000001001');
         }
     }
 
-    // TEMP TEST
-    $brandId = '1101600000001477';
+        $brandId = findBrand($brandName);
+
+        if (!$brandId) {
+        $brandId = createBrand($brandName);
+        }
 
         $goodId = findProduct($code);
-      
-if (!$goodId) {
-    echo "PRODUCT NOT FOUND: {$code}\n";
-      
-    $goodId = createProduct($code, $name, $brandId);
-}
-    $tpGoods[] = [
-        'rowNum' => (string)$row,
-        'good' => $goodId,
-        'price' => number_format($price, 5, '.', ''),
-        'qty' => number_format($qty, 3, '.', ''),
-        'baseQty' => number_format($qty, 3, '.', ''),
-        'priceAmount' => round($price * $qty, 2),
-        'unit' => '1103600000000001',
-        'ratio' => '1.0000',
-        'discount' => '0.00',
-        'discountPercent' => '0.0',
-        'amountCur' => round($price * $qty, 2),
-        'vatTax' => '1105800000000023',
-        'vatAmount' => '0.00'
-    ];
-        
+
+        if (!$goodId) {
+        $goodId = createProduct($code, $name, $brandId);
+        }
+
         $tpGoods[] = [
             'rowNum' => (string)$row,
             'good' => $goodId,
@@ -296,11 +348,11 @@ if (!$goodId) {
                 'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
                 'originalNumber' => $omega['Number'],
                 'originalDate' => date('Y-m-d H:i:s', strtotime($omega['Date'])),   
-                'firm' => $firmId,
+                'firm' => FIRM_ID,
                 'business' => BUSINESS_ID,
                 'storage' => STORAGE_ID,
-                'person' => $personId,
-                'contract' => $contractId,
+                'person' => PERSON_ID,
+                'contract' => CONTRACT_ID,
                 'currency' => CURRENCY_ID,
                 'amountCur' => $omega['Summ'],
                 'rate' => 1,
@@ -315,13 +367,17 @@ if (!$goodId) {
                 'tpGoods' => $tpGoods
             ]
         ]
-    ], $docApiKey);
+    ]);
 
     print_r($doc);
     echo "\n";
 }
 
 $list = omegaList();
+
+if (empty($list['Success']) || empty($list['Data']['Result'])) {
+    die("NO DOCUMENTS\n");
+}
 
 $processed = [];
 
@@ -341,9 +397,9 @@ foreach ($list['Data']['Result'] as $doc) {
 
     $processed[$key] = true;
 
-    // if (findDocumentByNumber($number)) {
-    //     continue;
-    // }
+    if (findDocumentByNumber($number)) {
+        continue;
+    }
 
     importDocument($doc['Id']);
 }
