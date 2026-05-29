@@ -144,6 +144,7 @@ return false;
 
 function findProduct($code)
 {
+    echo "findProduct: $code\n";
     return '1101500000000001';
 }
 
@@ -154,7 +155,8 @@ function findProductGlobal($code)
 
 function findBrand($name)
 {
-    return '1101600000001477'; // Без бренду
+    echo "findBrand\n";
+    return '1101600000001477';
 }
 
 function createBrand($name)
