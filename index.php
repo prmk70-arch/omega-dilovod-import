@@ -45,7 +45,7 @@ function postJson($url, $data)
 function dilovod($packet)
 {
     global $dilovodKey;
-    echo "DILOVOD KEY: " . substr($dilovodKey, 0, 10) . "...\n";
+   // echo "DILOVOD KEY: " . substr($dilovodKey, 0, 10) . "...\n";
 
     $packet['version'] = '0.25';
     $packet['key'] = $dilovodKey;
