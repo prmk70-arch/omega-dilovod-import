@@ -312,18 +312,6 @@ print_r([
 
 // echo "DILOVOD KEY: " . substr($dilovodKey, 0, 10) . "...\n";
 
-print_r(dilovod([
-    'action' => 'request',
-    'params' => [
-        'from' => 'documents.purchase',
-        'fields' => [
-            'id' => 'id'
-        ]
-    ]
-]));
-
-die();
-
 $list = omegaList();
 
 if (empty($list['Success']) || empty($list['Data']['Result'])) {
