@@ -310,7 +310,7 @@ print_r([
     echo "\n";
 }
 
-echo "DILOVOD KEY: " . substr($dilovodKey, 0, 10) . "...\n";
+// echo "DILOVOD KEY: " . substr($dilovodKey, 0, 10) . "...\n";
 
 print_r(dilovod([
     'action' => 'request',
