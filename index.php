@@ -45,6 +45,7 @@ function postJson($url, $data)
 function dilovod($packet)
 {
     global $dilovodKey;
+    echo "DILOVOD KEY: " . substr($dilovodKey, 0, 10) . "...\n";
 
     $packet['version'] = '0.25';
     $packet['key'] = $dilovodKey;
@@ -308,6 +309,20 @@ print_r([
     print_r($doc);
     echo "\n";
 }
+
+echo "DILOVOD KEY: " . substr($dilovodKey, 0, 10) . "...\n";
+
+print_r(dilovod([
+    'action' => 'request',
+    'params' => [
+        'from' => 'documents.purchase',
+        'fields' => [
+            'id' => 'id'
+        ]
+    ]
+]));
+
+die();
 
 $list = omegaList();
 
