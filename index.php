@@ -313,6 +313,9 @@ print_r([
     'amountCur' => $omega['Summ'],
     'rate' => 1,
     'taxAccount' => 1,
+    
+    'docMode' => DOCMODE_ID,
+                   
     'posted' => 0
 ],
             'tableParts' => []
