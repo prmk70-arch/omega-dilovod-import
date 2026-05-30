@@ -145,8 +145,7 @@ return false;
 
 function findProduct($code)
 {
-    echo "findProduct: $code\n";
-    return '1101500000000001';
+    return '1100300000020076';
 }
 
 function findProductGlobal($code)
