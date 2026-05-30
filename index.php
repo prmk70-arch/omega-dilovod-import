@@ -253,26 +253,7 @@ function importDocument($docId)
         $row++;
     }
 
-    echo "HEADER:\n";
-print_r([
-    'firm' => FIRM_ID,
-    'business' => BUSINESS_ID,
-    'storage' => STORAGE_ID,
-    'person' => PERSON_ID,
-    'contract' => CONTRACT_ID,
-    'currency' => CURRENCY_ID,
-    'docMode' => DOCMODE_ID,
-]);
-    
-    echo "BEFORE SAVE DOCUMENT\n";
-
-echo "TP GOODS:\n";
-// print_r($tpGoods);
-// die();
-
-    echo "HEADER FULL:\n";
-
-print_r([
+    print_r([
     'id' => 'documents.purchase',
     'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
     'originalNumber' => $omega['Number'],
@@ -321,8 +302,9 @@ print_r([
     'state' => '1111500000000005',              
     'posted' => 0
 ],
-            'tableParts' => []
-        ]
+    'tableParts' => [
+          'tpGoods' => $tpGoods
+     ]
     ]);
 
     print_r($doc);
