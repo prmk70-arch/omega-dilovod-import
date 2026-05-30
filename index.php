@@ -150,7 +150,7 @@ function findProduct($code)
 
 function findProductGlobal($code)
 {
-    return '1101500000000001';
+    return '1100300000020076';
 }
 
 function findBrand($name)
