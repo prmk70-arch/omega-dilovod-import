@@ -4,7 +4,7 @@ header('Content-Type: text/plain; charset=utf-8');
 set_time_limit(300);
 
 $omegaKey   = getenv('OMEGA_API_KEY');
-$dilovodKey = getenv('DILOVOD_API_KEY');
+$dilovodKey = getenv('DILOVOD_API_KEY_2');
 
 if (!$omegaKey) die('OMEGA_API_KEY not set');
 if (!$dilovodKey) die('DILOVOD_API_KEY not set');
