@@ -312,7 +312,17 @@ function importDocument($docId)
     echo "\n";
 }
 
-// echo "DILOVOD KEY: " . substr($dilovodKey, 0, 10) . "...\n";
+print_r(dilovod([
+    'action' => 'request',
+    'params' => [
+        'from' => 'catalogs.goods',
+        'fields' => [
+            'id' => 'id'
+        ]
+    ]
+]));
+
+die();
 
 $list = omegaList();
 
