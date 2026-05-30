@@ -305,6 +305,7 @@ function importDocument($docId)
     'tableParts' => [
           'tpGoods' => $tpGoods
      ]
+        ]                  
     ]);
 
     print_r($doc);
