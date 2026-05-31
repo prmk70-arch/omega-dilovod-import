@@ -145,8 +145,7 @@ return false;
 
 function findProduct($code)
 {
-    echo "findProduct: $code\n";
-    return '1100300000020076';
+      return '1100300000020076';
 }
 
 function findProductGlobal($code)
@@ -285,10 +284,10 @@ function importDocument($docId)
     'originalDate' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
 
     'firm' => FIRM_ID,
-    'business' => BUSINESS_ID,
-    'storage' => STORAGE_ID,
+    // 'business' => BUSINESS_ID,
+    // 'storage' => STORAGE_ID,
     'person' => PERSON_ID,
-    'contract' => CONTRACT_ID,
+    // 'contract' => CONTRACT_ID,
     'currency' => CURRENCY_ID,
 
     'amountCur' => $omega['Summ'],
@@ -302,8 +301,9 @@ function importDocument($docId)
     'state' => '1111500000000005',              
     'posted' => 0
 ],
-    'tableParts' => []
-        ]                  
+    'tableParts' => [
+    'tpGoods' => $tpGoods
+]                  
     ]);
 
     print_r($doc);
