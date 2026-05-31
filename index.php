@@ -262,7 +262,7 @@ function importDocument($docId)
     'business' => BUSINESS_ID,
     'storage' => STORAGE_ID,
     'person' => PERSON_ID,
-    'contract' => CONTRACT_ID,
+    //'contract' => CONTRACT_ID,
     'currency' => CURRENCY_ID,
     'amountCur' => $omega['Summ'],
     'rate' => 1,
