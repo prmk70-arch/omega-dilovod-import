@@ -186,6 +186,9 @@ function createBrand($name)
     return '1101600000001477'; // Без бренду
 }
 
+echo "BRAND ID = ";
+var_dump($brandId);
+
 function createProduct($code, $name, $brandId)
 {
     $res = dilovod([
