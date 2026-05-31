@@ -272,6 +272,9 @@ function importDocument($docId)
         }
 
         $goodId = findProduct($code);
+        
+        echo "GOOD ID AFTER FIND: ";
+        var_dump($goodId);
 
         if (!$goodId) {
         $goodId = createProduct($code, $name, $brandId);
