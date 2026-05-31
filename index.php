@@ -145,6 +145,7 @@ return false;
 
 function findProduct($code)
 {
+    echo "findProduct: $code\n";
     return '1100300000020076';
 }
 
