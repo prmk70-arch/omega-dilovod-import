@@ -295,7 +295,7 @@ die();
 
     'firm' => FIRM_ID,
     // 'business' => BUSINESS_ID,
-    // 'storage' => STORAGE_ID,
+    'storage' => STORAGE_ID,
     'person' => PERSON_ID,
     // 'contract' => CONTRACT_ID,
     'currency' => CURRENCY_ID,
@@ -314,7 +314,8 @@ die();
     'tableParts' => [
     'tpGoods' => $tpGoods
 ]                  
-    ]);
+         ]  
+                   ]);
 
     print_r($doc);
     echo "\n";
