@@ -270,7 +270,7 @@ function importDocument($docId)
     'paymentForm' => '1110300000000001',
     'department' => '1101900000000001',
     'state' => '1111500000000005',
-    // 'docMode' => DOCMODE_ID,
+    'docMode' => DOCMODE_ID,
     'posted' => 0
 ]);
    
