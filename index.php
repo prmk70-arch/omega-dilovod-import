@@ -196,21 +196,14 @@ function createProduct($code, $name, $brandId)
             'saveType' => 1,
             'header' => [
                 'id' => 0,
-                'code' => '',
-                'isGroup' => 0,
+                'owner' => 'catalogs.goods',
 
                 'name' => [
                     'uk' => $name,
                     'ru' => $name
                 ],
 
-                'owner' => 'catalogs.goods',
-
-                'mainUnit' => '1103600000000001',
-                'tradeMark' => $brandId,
-                'productNum' => $code,
-
-                'accPolicy' => '1201200000001002'
+                'productNum' => $code
             ],
             'tableParts' => []
         ]
@@ -218,11 +211,7 @@ function createProduct($code, $name, $brandId)
 
     print_r($res);
 
-    if (!empty($res['id'])) {
-        return $res['id'];
-    }
-
-    return false;
+    return $res['id'] ?? false;
 }
 
 function importDocument($docId)
