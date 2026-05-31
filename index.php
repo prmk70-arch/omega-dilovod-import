@@ -145,7 +145,29 @@ return false;
 
 function findProduct($code)
 {
-      return '1100300000020076';
+    $res = dilovod([
+        'action' => 'request',
+        'params' => [
+            'from' => 'catalogs.goods',
+            'fields' => [
+                'id' => 'id',
+                'productNum' => 'productNum'
+            ],
+            'filters' => [
+                [
+                    'alias' => 'productNum',
+                    'operator' => '=',
+                    'value' => trim($code)
+                ]
+            ]
+        ]
+    ]);
+
+    if (!empty($res[0]['id'])) {
+        return $res[0]['id'];
+    }
+
+    return false;
 }
 
 function findProductGlobal($code)
