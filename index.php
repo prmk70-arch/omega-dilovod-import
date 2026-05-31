@@ -302,9 +302,7 @@ function importDocument($docId)
     'state' => '1111500000000005',              
     'posted' => 0
 ],
-    'tableParts' => [
-          'tpGoods' => $tpGoods
-     ]
+    'tableParts' => []
         ]                  
     ]);
 
