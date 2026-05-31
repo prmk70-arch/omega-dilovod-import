@@ -264,6 +264,8 @@ function importDocument($docId)
     }
 
         $brandId = findBrand($brandName);
+        echo "BRAND NAME: {$brandName}\n";
+        echo "BRAND ID: {$brandId}\n";
 
         if (!$brandId) {
         $brandId = createBrand($brandName);
