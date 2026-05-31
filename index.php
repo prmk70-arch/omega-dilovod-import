@@ -197,21 +197,19 @@ function createProduct($code, $name, $brandId)
             'header' => [
                 'id' => 0,
                 'owner' => 'catalogs.goods',
-
                 'name' => [
                     'uk' => $name,
                     'ru' => $name
-                ],
-
-                'productNum' => $code
+                ]
             ],
             'tableParts' => []
         ]
     ]);
 
     print_r($res);
+    die();
 
-    return $res['id'] ?? false;
+    return false;
 }
 
 function importDocument($docId)
