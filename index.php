@@ -275,7 +275,6 @@ function importDocument($docId)
    
     echo "TP GOODS:\n";
 print_r($tpGoods);
-die();
     
     $doc = dilovod([
         'action' => 'saveObject',
