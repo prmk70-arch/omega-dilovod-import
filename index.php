@@ -312,18 +312,6 @@ function importDocument($docId)
     echo "\n";
 }
 
-print_r(dilovod([
-    'action' => 'request',
-    'params' => [
-        'from' => 'catalogs.goods',
-        'fields' => [
-            'id' => 'id'
-        ]
-    ]
-]));
-
-die();
-
 $list = omegaList();
 
 if (empty($list['Success']) || empty($list['Data']['Result'])) {
