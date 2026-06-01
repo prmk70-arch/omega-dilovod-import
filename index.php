@@ -212,6 +212,18 @@ function createProduct($code, $name, $brandId)
         ]
     ]);
 
+    rint_r(dilovod([
+    'action' => 'request',
+    'params' => [
+        'from' => 'catalogs.goods',
+        'fields' => [
+            'id' => 'id',
+            'id__pr' => 'id__pr'
+        ]
+    ]
+]));
+die();
+    
     print_r($res);
     die();
 }
