@@ -191,16 +191,33 @@ var_dump($brandId);
 function createProduct($code, $name, $brandId)
 {
     $res = dilovod([
-    'action' => 'getObject',
-    'params' => [
-        'id' => '1100300000001001'
-    ]
-]);
+        'action' => 'saveObject',
+        'params' => [
+            'saveType' => 1,
+            'header' => [
+                'id' => 0,
+                'code' => 0,
+                'isGroup' => 0,
 
-print_r($res);
-die();
+                'name' => [
+                    'uk' => $name,
+                    'ru' => $name
+                ],
+
+                'parent' => '1100300000003465', // временно как у Renault
+                'mainUnit' => '1103600000000001',
+                'tradeMark' => $brandId,
+                'productNum' => $code,
+                'accPolicy' => '1201200000001002',
+                'specQty' => 1
+            ],
+            'tableParts' => []
+        ]
+    ]);
+
+    print_r($res);
+    die();
 }
-
 function importDocument($docId)
 {
     echo "START IMPORT: {$docId}\n";
