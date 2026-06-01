@@ -190,8 +190,8 @@ var_dump($brandId);
 
 function createProduct($code, $name, $brandId)
 {
-    die("CREATE PRODUCT ENTERED");
- 
+    echo "CREATE PRODUCT: $code / $name\n";
+
     $res = dilovod([
         'action' => 'saveObject',
         'params' => [
@@ -210,8 +210,6 @@ function createProduct($code, $name, $brandId)
 
     print_r($res);
     die();
-
-    return false;
 }
 
 function importDocument($docId)
