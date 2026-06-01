@@ -196,6 +196,7 @@ function createProduct($code, $name, $brandId)
         'from' => 'catalogs.goods',
         'fields' => [
             'id' => 'id',
+            'isGroup' => 'isGroup',
             'productNum' => 'productNum',
             'name' => 'name'
         ],
@@ -209,7 +210,7 @@ function createProduct($code, $name, $brandId)
     ]
 ]);
 
-print_r(array_slice($res, 0, 10));
+print_r(array_slice($res, 0, 20));
 die();
 }
 
