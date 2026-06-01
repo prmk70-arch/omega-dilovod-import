@@ -190,40 +190,13 @@ var_dump($brandId);
 
 function createProduct($code, $name, $brandId)
 {
-    $header = [
-        'id' => 'catalogs.goods',
-        'code' => 0,
-        'isGroup' => 0,
-        'name' => [
-            'uk' => $name,
-            'ru' => $name
-        ],
-        'owner' => 'catalogs.goods'
-    ];
-
-    print_r($header);
-
     $res = dilovod([
-        'action' => 'saveObject',
+        'action' => 'getObject',
         'params' => [
-            'saveType' => 1,
-            'header' => $header,
-            'tableParts' => []
+            'id' => '1100300000020062'
         ]
     ]);
 
-    rint_r(dilovod([
-    'action' => 'request',
-    'params' => [
-        'from' => 'catalogs.goods',
-        'fields' => [
-            'id' => 'id',
-            'id__pr' => 'id__pr'
-        ]
-    ]
-]));
-die();
-    
     print_r($res);
     die();
 }
