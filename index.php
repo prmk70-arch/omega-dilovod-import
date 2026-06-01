@@ -193,7 +193,7 @@ function createProduct($code, $name, $brandId)
     $res = dilovod([
         'action' => 'getObject',
         'params' => [
-            'id' => '1100300000020062'
+            'id' => '1100300000003456'
         ]
     ]);
 
