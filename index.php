@@ -204,7 +204,9 @@ function createProduct($code, $name, $brandId)
                     'ru' => $name
                 ],
 
-                'parent' => '1100300000003465', // временно как у Renault
+                // группа Bosch / бренд Bosch
+                'parent' => '1100300000003465',
+
                 'mainUnit' => '1103600000000001',
                 'tradeMark' => $brandId,
                 'productNum' => $code,
@@ -218,6 +220,7 @@ function createProduct($code, $name, $brandId)
     print_r($res);
     die();
 }
+
 function importDocument($docId)
 {
     echo "START IMPORT: {$docId}\n";
