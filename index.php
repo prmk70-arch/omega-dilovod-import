@@ -185,9 +185,6 @@ function createBrand($name)
     return '1101600000001477'; // Без бренду
 }
 
-echo "BRAND ID = ";
-var_dump($brandId);
-
 function createProduct($code, $name, $brandId)
 {
     echo "CREATE PRODUCT START\n";
@@ -375,9 +372,8 @@ print_r($tpGoods);
 
 $list = omegaList();
 
-if (empty($list['Success']) || empty($list['Data']['Result'])) {
-    die("NO DOCUMENTS\n");
-}
+print_r($list);
+die();
 
 $processed = [];
 
