@@ -191,26 +191,13 @@ var_dump($brandId);
 function createProduct($code, $name, $brandId)
 {
     $res = dilovod([
-    'action' => 'request',
+    'action' => 'getObject',
     'params' => [
-        'from' => 'catalogs.goods',
-        'fields' => [
-            'id' => 'id',
-            'isGroup' => 'isGroup',
-            'productNum' => 'productNum',
-            'name' => 'name'
-        ],
-        'filters' => [
-            [
-                'alias' => 'isGroup',
-                'operator' => '=',
-                'value' => 0
-            ]
-        ]
+        'id' => '1100300000001001'
     ]
 ]);
 
-print_r(array_slice($res, 0, 20));
+print_r($res);
 die();
 }
 
