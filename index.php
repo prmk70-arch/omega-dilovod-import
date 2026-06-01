@@ -190,20 +190,24 @@ var_dump($brandId);
 
 function createProduct($code, $name, $brandId)
 {
-    echo "CREATE PRODUCT: $code / $name\n";
+    $header = [
+        'id' => 0,
+        'code' => 0,
+        'isGroup' => 0,
+        'name' => [
+            'uk' => $name,
+            'ru' => $name
+        ],
+        'owner' => 'catalogs.goods'
+    ];
+
+    print_r($header);
 
     $res = dilovod([
         'action' => 'saveObject',
         'params' => [
             'saveType' => 1,
-            'header' => [
-                'id' => 0,
-                'owner' => 'catalogs.goods',
-                'name' => [
-                    'uk' => $name,
-                    'ru' => $name
-                ]
-            ],
+            'header' => $header,
             'tableParts' => []
         ]
     ]);
