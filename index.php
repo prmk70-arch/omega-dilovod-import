@@ -190,7 +190,38 @@ var_dump($brandId);
 
 function createProduct($code, $name, $brandId)
 {
-    die('STEP 1');
+    echo "CREATE PRODUCT START\n";
+
+    $header = [
+        'id' => 0,
+        'code' => 0,
+        'isGroup' => 0,
+
+        'name' => [
+            'uk' => $name,
+            'ru' => $name
+        ],
+
+        'parent' => '1100300000003465',
+        'mainUnit' => '1103600000000001',
+        'tradeMark' => $brandId,
+        'productNum' => $code,
+        'accPolicy' => '1201200000001002',
+        'specQty' => 1
+    ];
+
+    echo "HEADER TO SAVE:\n";
+    print_r($header);
+    die();
+
+    $res = dilovod([
+        'action' => 'saveObject',
+        'params' => [
+            'saveType' => 1,
+            'header' => $header,
+            'tableParts' => []
+        ]
+    ]);
 }
 function importDocument($docId)
 {
