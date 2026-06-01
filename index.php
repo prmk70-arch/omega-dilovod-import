@@ -204,9 +204,7 @@ function createProduct($code, $name, $brandId)
                     'ru' => $name
                 ],
 
-                // группа Bosch / бренд Bosch
                 'parent' => '1100300000003465',
-
                 'mainUnit' => '1103600000000001',
                 'tradeMark' => $brandId,
                 'productNum' => $code,
