@@ -206,11 +206,21 @@ function createProduct($code, $name, $brandId)
                     'ru' => $name
                 ],
 
-                'parent' => '1100300000003465',
-                'mainUnit' => '1103600000000001',
-                'tradeMark' => $brandId,
+                'parent' => [
+    'id' => '1100300000003465'
+],
+
+'mainUnit' => [
+    'id' => '1103600000000001'
+],
+
+'tradeMark' => [
+    'id' => $brandId
+],
                 'productNum' => $code,
-                'accPolicy' => '1201200000001002',
+                'accPolicy' => [
+    'id' => '1201200000001002'
+],
                 'specQty' => 1
             ],
             'tableParts' => []
