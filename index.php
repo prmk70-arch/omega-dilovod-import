@@ -1,5 +1,7 @@
 <?php
 
+print_r($header);
+
 header('Content-Type: text/plain; charset=utf-8');
 set_time_limit(300);
 
