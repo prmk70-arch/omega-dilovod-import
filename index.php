@@ -191,7 +191,7 @@ var_dump($brandId);
 function createProduct($code, $name, $brandId)
 {
     $header = [
-        'id' => 'catalogs.goods'
+        'id' => 'catalogs.goods',
         'code' => 0,
         'isGroup' => 0,
         'name' => [
