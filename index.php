@@ -375,9 +375,6 @@ print_r($tpGoods);
 
 $list = omegaList();
 
-print_r($list);
-die();
-
 $processed = [];
 
 foreach ($list['Data']['Result'] as $doc) {
