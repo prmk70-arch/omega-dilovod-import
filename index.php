@@ -304,7 +304,7 @@ function importDocument($docId)
         var_dump($goodId);
 
         if (!$goodId) {
-        $goodId = createProduct($code, $name, $brandId);
+        getBrandGroup($brandId);
         }
 
         echo "AFTER PRODUCT\n";
