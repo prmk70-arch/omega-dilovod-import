@@ -190,7 +190,11 @@ function createBrand($name)
 
 function createProduct($code, $name, $brandId)
 {
-    return false;
+    if (!$goodId) {
+    $goodId = createProduct($code, $name, $brandId);
+
+    echo "GOOD ID AFTER CREATE: ";
+    var_dump($goodId);
 }
 
 function importDocument($docId)
