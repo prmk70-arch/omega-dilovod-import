@@ -190,7 +190,41 @@ function createBrand($name)
 
 function createProduct($code, $name, $brandId)
 {
-    return false;
+    echo "CREATE PRODUCT: $code / $name\n";
+
+    $header = [
+        'id' => 0,
+        'code' => '',
+        'isGroup' => 0,
+
+        'name' => [
+            'uk' => $name,
+            'ru' => $name
+        ],
+
+        'parent' => '1100300000003465',
+        'mainUnit' => '1103600000000001',
+        'tradeMark' => $brandId,
+        'productNum' => $code,
+        'accPolicy' => '1201200000001002',
+        'specQty' => 1
+    ];
+
+    print_r($header);
+
+    $res = dilovod([
+        'action' => 'saveObject',
+        'params' => [
+            'saveType' => 1,
+            'header' => $header,
+            'tableParts' => []
+        ]
+    ]);
+
+    echo "CREATE PRODUCT RESULT:\n";
+    print_r($res);
+
+    die();
 }
 
 function importDocument($docId)
