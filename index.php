@@ -192,7 +192,7 @@ function createBrand($name)
 
 function createProduct($code, $name, $brandId)
 {
-
+{
     echo "ENTER createProduct\n";
     die();
 }
