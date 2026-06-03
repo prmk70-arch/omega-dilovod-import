@@ -199,7 +199,7 @@ function createProduct($code, $name, $brandId)
     'params' => [
         'saveType' => 1,
         'header' => [
-            'id' => 0,
+            'id' => 'catalogs.goods',
             'isGroup' => 0,
 
             'name' => [
