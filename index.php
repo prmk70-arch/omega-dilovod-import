@@ -147,7 +147,8 @@ return false;
 }
 
 function findProduct($code)
-{
+{ 
+    echo "ENTER findProduct: $code\n";
     $res = dilovod([
         'action' => 'request',
         'params' => [
