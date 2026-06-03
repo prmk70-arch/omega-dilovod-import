@@ -190,39 +190,9 @@ function createBrand($name)
     return '1101600000001477'; // Без бренду
 }
 
-// function getBrandGroup($brandId)
-{
-    $res = dilovod([
-    'action' => 'request',
-    'params' => [
-        'from' => 'catalogs.goods',
-        'fields' => [
-            'id' => 'id',
-            'isGroup' => 'isGroup',
-            'name' => 'name'
-        ],
-        'filters' => [
-            [
-                'alias' => 'isGroup',
-                'operator' => '=',
-                'value' => 1
-            ],
-            [
-                'alias' => 'name',
-                'operator' => 'like',
-                'value' => 'Bosch'
-            ]
-        ]
-    ]
-]);
-
-print_r($res);
-die();
-}
-
 function createProduct($code, $name, $brandId)
-{ 
 {
+
     echo "ENTER createProduct\n";
     die();
 }
