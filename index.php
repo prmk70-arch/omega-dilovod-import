@@ -223,7 +223,7 @@ function createProduct($code, $name, $brandId)
     echo "CREATE PRODUCT: $code / $name\n";
 
     $header = [
-        'id' => 0,
+        'id' => catalogs.goods,
         'code' => '',
         'isGroup' => 0,
 
