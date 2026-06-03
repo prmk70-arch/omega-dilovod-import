@@ -147,9 +147,9 @@ return false;
 }
 
 function findProduct($code)
-{ 
-    die("ENTER findProduct");
+{
     echo "ENTER findProduct: $code\n";
+
     $res = dilovod([
         'action' => 'request',
         'params' => [
@@ -168,11 +168,9 @@ function findProduct($code)
         ]
     ]);
 
-    if (!empty($res[0]['id'])) {
-        return $res[0]['id'];
-    }
-
-    return false;
+    echo "FIND PRODUCT RESULT:\n";
+    print_r($res);
+    die();
 }
 
 function findProductGlobal($code)
