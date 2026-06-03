@@ -194,40 +194,39 @@ function createBrand($name)
 
 function createProduct($code, $name, $brandId)
 {
-    $packet = [
-    'action' => 'saveObject',
-    'params' => [
-        'saveType' => 1,
-        'header' => [
-            'id' => 'catalogs.goods',
-            'isGroup' => 0,
+    $res = dilovod([
+        'action' => 'saveObject',
+        'params' => [
+            'saveType' => 1,
+            'header' => [
+                'id' => 'catalogs.goods',
+                'isGroup' => 0,
 
-            'name' => [
-                'uk' => $name,
-                'ru' => $name
+                'name' => [
+                    'uk' => $name,
+                    'ru' => $name
+                ],
+
+                'parent' => '1100300000003465', // пока оставляем
+                'tradeMark' => $brandId,
+
+                'productNum' => $code,
+                'mainUnit' => '1103600000000001',
+                'accPolicy' => '1201200000001002',
+                'specQty' => 1
             ],
+            'tableParts' => []
+        ]
+    ]);
 
-            'parent' => '1100300000003465',
-            'tradeMark' => '1101600000001001',
+    if (!empty($res['id'])) {
+        return $res['id'];
+    }
 
-            'productNum' => $code,
-            'mainUnit' => '1103600000000001',
-            'accPolicy' => '1201200000001002',
-            'specQty' => 1
-        ],
-        'tableParts' => []
-    ]
-];
-
-    echo "CREATE PRODUCT PACKET:\n";
-    print_r($packet);
-
-    $res = dilovod($packet);
-
-    echo "CREATE PRODUCT RESULT:\n";
+    echo "CREATE PRODUCT ERROR:\n";
     print_r($res);
 
-    die();
+    return false;
 }
 
 function importDocument($docId)
