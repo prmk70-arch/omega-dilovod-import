@@ -219,7 +219,12 @@ die();
 }
 
 function createProduct($code, $name, $brandId)
+{ 
 {
+    echo "ENTER createProduct\n";
+    die();
+}
+    
     $res = dilovod([
         'action' => 'saveObject',
         'params' => [
