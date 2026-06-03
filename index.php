@@ -148,8 +148,7 @@ return false;
 
 function findProduct($code)
 {
-    echo "ENTER findProduct: $code\n";
-
+    
     $res = dilovod([
         'action' => 'request',
         'params' => [
@@ -168,8 +167,6 @@ function findProduct($code)
         ]
     ]);
 
-    echo "FIND PRODUCT RESULT:\n";
-    print_r($res);
     if (!empty($res[0]['id'])) {
     return $res[0]['id'];
 }
