@@ -170,7 +170,11 @@ function findProduct($code)
 
     echo "FIND PRODUCT RESULT:\n";
     print_r($res);
-    die();
+    if (!empty($res[0]['id'])) {
+    return $res[0]['id'];
+}
+
+return false;
 }
 
 function findProductGlobal($code)
@@ -190,29 +194,14 @@ function createBrand($name)
 
 function createProduct($code, $name, $brandId)
 {
-{
     echo "ENTER createProduct\n";
-    die();
-}
-    
-    $res = dilovod([
-        'action' => 'saveObject',
-        'params' => [
-            'saveType' => 1,
-            'header' => [
-                'id' => 'catalogs.goods',
 
-                'name' => [
-                    'uk' => $name,
-                    'ru' => $name
-                ],
-
-                'productNum' => $code
-            ]
-        ]
+    print_r([
+        'code' => $code,
+        'name' => $name,
+        'brandId' => $brandId
     ]);
 
-    print_r($res);
     die();
 }
 
