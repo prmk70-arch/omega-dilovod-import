@@ -220,39 +220,24 @@ die();
 
 function createProduct($code, $name, $brandId)
 {
-    echo "CREATE PRODUCT: $code / $name\n";
-
-    $header = [
-    'id' => 0,
-    'isGroup' => 0,
-
-    'name' => [
-        'uk' => $name,
-        'ru' => $name
-    ],
-
-    'parent' => '1100300000003465',
-    'mainUnit' => '1103600000000001',
-    'tradeMark' => '1101600000001001',
-    'productNum' => $code,
-
-    'accPolicy' => '1201200000001002',
-    'specQty' => 1
-];
-    print_r($header);
-
     $res = dilovod([
         'action' => 'saveObject',
         'params' => [
             'saveType' => 1,
-            'header' => $header,
-            'tableParts' => []
+            'header' => [
+                'id' => 'catalogs.goods',
+
+                'name' => [
+                    'uk' => $name,
+                    'ru' => $name
+                ],
+
+                'productNum' => $code
+            ]
         ]
     ]);
 
-    echo "CREATE PRODUCT RESULT:\n";
     print_r($res);
-
     die();
 }
 
