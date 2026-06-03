@@ -272,9 +272,7 @@ function importDocument($docId)
         if (!$goodId) {
            $goodId = createProduct($code, $name, $brandId);
 
-    echo "GOOD ID AFTER CREATE: ";
-    var_dump($goodId);
-}
+    }
     
         $tpGoods[] = [
             'rowNum' => (string)$row,
