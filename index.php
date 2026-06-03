@@ -9,9 +9,6 @@ $dilovodKey = getenv('DILOVOD_API_KEY_2');
 if (!$omegaKey) die('OMEGA_API_KEY not set');
 if (!$dilovodKey) die('DILOVOD_API_KEY not set');
 
-echo "OMEGA KEY: " . substr($omegaKey, 0, 10) . "...\n";
-echo "DILOVOD KEY: " . substr($dilovodKey, 0, 10) . "...\n";
-
 const FIRM_ID      = '1100400000001002';
 const PERSON_ID    = '1100100000001002';
 const STORAGE_ID   = '1100700000000001'; // Основний склад
