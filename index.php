@@ -265,27 +265,20 @@ function importDocument($docId)
     }
 
         $brandId = findBrand($brandName);
-        echo "BRAND NAME: {$brandName}\n";
-        echo "BRAND ID: {$brandId}\n";
-
+        
         if (!$brandId) {
         $brandId = createBrand($brandName);
         }
 
         $goodId = findProduct($code);
 
-echo "GOOD ID AFTER FIND: ";
-var_dump($goodId);
-
-if (!$goodId) {
-    $goodId = createProduct($code, $name, $brandId);
+        if (!$goodId) {
+           $goodId = createProduct($code, $name, $brandId);
 
     echo "GOOD ID AFTER CREATE: ";
     var_dump($goodId);
 }
-
-echo "AFTER PRODUCT\n";
-        
+    
         $tpGoods[] = [
             'rowNum' => (string)$row,
             'good' => $goodId,
@@ -312,9 +305,7 @@ echo "AFTER PRODUCT\n";
             'vatAmount' => '0.00'
         ];
 
-        echo "AFTER TPGOODS\n";
-
-        $row++;
+                $row++;
     }
 
     print_r([
