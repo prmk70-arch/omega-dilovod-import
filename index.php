@@ -188,7 +188,7 @@ function createBrand($name)
     return '1101600000001477'; // Без бренду
 }
 
-function getBrandGroup($brandId)
+// function getBrandGroup($brandId)
 {
     $res = dilovod([
     'action' => 'request',
@@ -288,15 +288,18 @@ function importDocument($docId)
         }
 
         $goodId = findProduct($code);
-        
-        echo "GOOD ID AFTER FIND: ";
-        var_dump($goodId);
 
-        if (!$goodId) {
-        getBrandGroup($brandId);
-        }
+echo "GOOD ID AFTER FIND: ";
+var_dump($goodId);
 
-        echo "AFTER PRODUCT\n";
+if (!$goodId) {
+    $goodId = createProduct($code, $name, $brandId);
+
+    echo "GOOD ID AFTER CREATE: ";
+    var_dump($goodId);
+}
+
+echo "AFTER PRODUCT\n";
         
         $tpGoods[] = [
             'rowNum' => (string)$row,
