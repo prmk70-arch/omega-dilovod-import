@@ -191,26 +191,31 @@ function createBrand($name)
 function getBrandGroup($brandId)
 {
     $res = dilovod([
-        'action' => 'request',
-        'params' => [
-            'from' => 'catalogs.goods',
-            'fields' => [
-                'id' => 'id',
-                'isGroup' => 'isGroup',
-                'name' => 'name'
+    'action' => 'request',
+    'params' => [
+        'from' => 'catalogs.goods',
+        'fields' => [
+            'id' => 'id',
+            'isGroup' => 'isGroup',
+            'name' => 'name'
+        ],
+        'filters' => [
+            [
+                'alias' => 'isGroup',
+                'operator' => '=',
+                'value' => 1
             ],
-            'filters' => [
-                [
-                    'alias' => 'isGroup',
-                    'operator' => '=',
-                    'value' => 1
-                ]
+            [
+                'alias' => 'name',
+                'operator' => 'like',
+                'value' => 'Bosch'
             ]
         ]
-    ]);
+    ]
+]);
 
-    print_r($res);
-    die();
+print_r($res);
+die();
 }
 
 function createProduct($code, $name, $brandId)
