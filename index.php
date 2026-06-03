@@ -195,25 +195,29 @@ function createBrand($name)
 function createProduct($code, $name, $brandId)
 {
     $packet = [
-        'action' => 'saveObject',
-        'params' => [
-            'saveType' => 1,
-            'header' => [
-                'id' => 0,
-                'isGroup' => 0,
+    'action' => 'saveObject',
+    'params' => [
+        'saveType' => 1,
+        'header' => [
+            'id' => 0,
+            'isGroup' => 0,
 
-                'name' => [
-                    'uk' => $name,
-                    'ru' => $name
-                ],
-
-                'productNum' => $code,
-                'mainUnit' => '1103600000000001',
-                'accPolicy' => '1201200000001002'
+            'name' => [
+                'uk' => $name,
+                'ru' => $name
             ],
-            'tableParts' => []
-        ]
-    ];
+
+            'parent' => '1100300000003465',
+            'tradeMark' => '1101600000001001',
+
+            'productNum' => $code,
+            'mainUnit' => '1103600000000001',
+            'accPolicy' => '1201200000001002',
+            'specQty' => 1
+        ],
+        'tableParts' => []
+    ]
+];
 
     echo "CREATE PRODUCT PACKET:\n";
     print_r($packet);
