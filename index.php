@@ -177,7 +177,19 @@ function findProductGlobal($code)
 
 function findBrand($name)
 {
-    return 'catalogs.tradeMarks';
+    $res = dilovod([
+        'action' => 'request',
+        'params' => [
+            'from' => 'catalogs.tradeMarks',
+            'fields' => [
+                'id' => 'id',
+                'name' => 'name'
+            ]
+        ]
+    ]);
+
+    print_r(array_slice($res, 0, 5));
+    die();
 }
 
 function createBrand($name)
