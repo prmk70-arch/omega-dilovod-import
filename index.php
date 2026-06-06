@@ -188,13 +188,42 @@ function findBrand($name)
         ]
     ]);
 
-    print_r(array_slice($res, 0, 5));
-    die();
+    foreach ($res as $row) {
+
+        if (
+            mb_strtoupper(trim($row['name'])) ==
+            mb_strtoupper(trim($name))
+        ) {
+            return $row['id'];
+        }
+    }
+
+    return false;
 }
 
 function createBrand($name)
 {
-    return '1101600000001477'; // Без бренду
+    $res = dilovod([
+        'action' => 'saveObject',
+        'params' => [
+            'saveType' => 1,
+            'header' => [
+                'id' => 'catalogs.tradeMarks',
+                'isGroup' => 0,
+                'name' => [
+                    'uk' => $name,
+                    'ru' => $name
+                ]
+            ]
+        ]
+    ]);
+
+    if (!empty($res['id'])) {
+        return $res['id'];
+    }
+
+    print_r($res);
+    return false;
 }
 
 function createProduct($code, $name, $brandId)
