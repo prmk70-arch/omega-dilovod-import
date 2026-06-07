@@ -201,6 +201,33 @@ function findBrand($name)
     return false;
 }
 
+function findBrandGroup($brandName)
+{
+    $res = dilovod([
+        'action' => 'request',
+        'params' => [
+            'from' => 'catalogs.goods',
+            'fields' => [
+                'id' => 'id',
+                'name' => 'name',
+                'isGroup' => 'isGroup'
+            ]
+        ]
+    ]);
+
+    foreach ($res as $row) {
+
+        if (
+            !empty($row['isGroup']) &&
+            mb_strtoupper(trim($row['name'])) == mb_strtoupper(trim($brandName))
+        ) {
+            print_r($row);
+        }
+    }
+
+    die();
+}
+
 function createBrand($name)
 {
     $res = dilovod([
