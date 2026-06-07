@@ -201,7 +201,7 @@ function findBrand($name)
     return false;
 }
 
-function findBrandGroup($brandName)
+function findBrandGroup('BOSCH')
 {
     $res = dilovod([
         'action' => 'request',
