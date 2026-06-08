@@ -201,7 +201,7 @@ function findBrand($name)
     return false;
 }
 
-function findBrandGroup('BOSCH')
+function findBrandGroup($brandName)
 {
     $res = dilovod([
         'action' => 'request',
@@ -219,13 +219,13 @@ function findBrandGroup('BOSCH')
 
         if (
             !empty($row['isGroup']) &&
-            mb_strtoupper(trim($row['name'])) == mb_strtoupper(trim($brandName))
+            mb_strtoupper(trim($row['name'])) === mb_strtoupper(trim($brandName))
         ) {
-            print_r($row);
+            return $row['id'];
         }
     }
 
-    die();
+    return false;
 }
 
 function createBrand($name)
@@ -253,29 +253,34 @@ function createBrand($name)
     return false;
 }
 
-function createProduct($code, $name, $brandId)
+function createProduct($code, $name, $brandId, $parentId = null)
 {
+    $header = [
+        'id' => 'catalogs.goods',
+        'isGroup' => 0,
+
+        'name' => [
+            'uk' => $name,
+            'ru' => $name
+        ],
+
+        'tradeMark' => $brandId,
+
+        'productNum' => trim($code),
+        'mainUnit' => '1103600000000001',
+        'accPolicy' => '1201200000001002',
+        'specQty' => 1
+    ];
+
+    if (!empty($parentId)) {
+        $header['parent'] = $parentId;
+    }
+
     $res = dilovod([
         'action' => 'saveObject',
         'params' => [
             'saveType' => 1,
-            'header' => [
-                'id' => 'catalogs.goods',
-                'isGroup' => 0,
-
-                'name' => [
-                    'uk' => $name,
-                    'ru' => $name
-                ],
-
-                'parent' => '1100300000003465', // пока оставляем
-                'tradeMark' => $brandId,
-
-                'productNum' => $code,
-                'mainUnit' => '1103600000000001',
-                'accPolicy' => '1201200000001002',
-                'specQty' => 1
-            ],
+            'header' => $header,
             'tableParts' => []
         ]
     ]);
@@ -328,18 +333,28 @@ function importDocument($docId)
         }
     }
 
-        $brandId = findBrand($brandName);
-        
-        if (!$brandId) {
-        $brandId = createBrand($brandName);
-        }
+       $brandId = findBrand($brandName);
 
-        $goodId = findProduct($code);
+if (!$brandId) {
+    $brandId = createBrand($brandName);
+}
 
-        if (!$goodId) {
-           $goodId = createProduct($code, $name, $brandId);
+$parentId = findBrandGroup($brandName);
 
-    }
+echo "BRAND: {$brandName}\n";
+echo "BRAND ID: {$brandId}\n";
+echo "GROUP ID: {$parentId}\n";
+
+$goodId = findProduct($code);
+
+if (!$goodId) {
+    $goodId = createProduct(
+        $code,
+        $name,
+        $brandId,
+        $parentId
+    );
+}
     
         $tpGoods[] = [
             'rowNum' => (string)$row,
