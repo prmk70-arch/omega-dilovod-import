@@ -323,6 +323,9 @@ function importDocument($docId)
         $qty = (float)$p['Count'];
         $price = (float)$p['PiceWithVAT'];
 
+        echo "PRODUCT DATA:\n";
+        print_r($p);
+        
         $brandName = trim($p['Brand'] ?? '');
 
     if (!$brandName) {
