@@ -328,13 +328,23 @@ function importDocument($docId)
         
         $brandName = trim($p['Brand'] ?? '');
 
-    if (!$brandName) {
-        if (preg_match('/\(пр-во\s+([^)]+)\)/ui', $p['ProductDescrition'], $m)) {
-            $brandName = trim($m[1]);
-        } else {
-            $brandName = 'Без бренду';
-        }
+if (!$brandName) {
+
+    // (RIDER)
+    if (preg_match('/\(([^)]+)\)\s*$/u', $p['ProductDescrition'], $m)) {
+
+        $brandName = trim($m[1]);
+
+    // (пр-во Bosch)
+    } elseif (preg_match('/\(пр-во\s+([^)]+)\)/ui', $p['ProductDescrition'], $m)) {
+
+        $brandName = trim($m[1]);
+
+    } else {
+
+        $brandName = 'Без бренду';
     }
+}
 
        $brandId = findBrand($brandName);
 
