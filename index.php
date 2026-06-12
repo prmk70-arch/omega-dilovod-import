@@ -322,13 +322,9 @@ function importDocument($docId)
         $name = trim($p['ProductDescrition']);
         $qty = (float)$p['Count'];
         $price = (float)$p['PiceWithVAT'];
-
-        echo "PRODUCT DATA:\n";
-        print_r($p);
-        
+                
         $brandName = trim($p['Brand'] ?? '');
-        echo "DESCRIPTION = [" . $p['ProductDescrition'] . "]\n";
-
+       
 if (preg_match('/\(([^)]+)\)\s*$/u', $p['ProductDescrition'], $m)) {
     echo "REGEX FOUND: ";
     print_r($m);
@@ -353,9 +349,7 @@ if (!$brandName) {
         $brandName = 'Без бренду';
     }
 }
-
-        echo "BRAND AFTER DETECT: {$brandName}\n";
-        
+                
        $brandId = findBrand($brandName);
 
 if (!$brandId) {
