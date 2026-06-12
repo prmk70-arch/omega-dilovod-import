@@ -475,7 +475,8 @@ foreach ($list['Data']['Result'] as $doc) {
     }
 
     echo "IMPORT DOCUMENT: {$number}\n";  
-    importDocument($doc['Id']);
+    importDocument('c7ee762f-6323-11f1-b874-005056ac465f');
+die();
 }
 
 echo "DONE\n";
