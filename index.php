@@ -309,10 +309,10 @@ function importDocument($docId)
     $omega = $headerRes['Data'];
     $products = $productsRes['Data'];
 
-    if (findDocumentByNumber($omega['Number'])) {
-        echo "SKIP EXISTS: {$omega['Number']}\n";
-        return;
-    }
+    //if (findDocumentByNumber($omega['Number'])) {
+      //  echo "SKIP EXISTS: {$omega['Number']}\n";
+        //return;
+    //}
 
     $tpGoods = [];
     $row = 1;
