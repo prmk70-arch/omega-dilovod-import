@@ -469,6 +469,7 @@ $list = omegaList();
 $processed = [];
 
 foreach ($list['Data']['Result'] as $doc) {
+
     $header = omegaHeader($doc['Id']);
 
     if (empty($header['Success'])) {
@@ -485,12 +486,12 @@ foreach ($list['Data']['Result'] as $doc) {
     $processed[$key] = true;
 
     if (findDocumentByNumber($number)) {
+        echo "SKIP EXISTS: {$number}\n";
         continue;
     }
 
-    echo "IMPORT DOCUMENT: {$number}\n";  
-    importDocument('c7ee762f-6323-11f1-b874-005056ac465f');
-die();
+    echo "IMPORT DOCUMENT: {$number}\n";
+    importDocument($doc['Id']);
 }
 
 echo "DONE\n";
