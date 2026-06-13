@@ -303,12 +303,7 @@ function importDocument($docId)
 
     $omega = $headerRes['Data'];
     $products = $productsRes['Data'];
-
-     if (findDocumentByNumber($omega['Number'])) {
-     echo "SKIP EXISTS: {$omega['Number']}\n";
-     return;
-     }
-
+     
     $tpGoods = [];
     $row = 1;
 
@@ -319,18 +314,10 @@ function importDocument($docId)
         $price = (float)$p['PiceWithVAT'];
                 
         $brandName = trim($p['Brand'] ?? '');
-       
-if (preg_match('/\(([^)]+)\)\s*$/u', $p['ProductDescrition'], $m)) {
-    echo "REGEX FOUND: ";
-    print_r($m);
-} else {
-    echo "REGEX NOT FOUND\n";
-}
+   
+     if (!$brandName) {
 
-if (!$brandName) {
-
-    // (RIDER)
-    if (preg_match('/\(([^)]+)\)\s*$/u', $p['ProductDescrition'], $m)) {
+     if (preg_match('/\(([^)]+)\)\s*$/u', $p['ProductDescrition'], $m)) {
 
         $brandName = trim($m[1]);
 
@@ -352,10 +339,6 @@ if (!$brandId) {
 }
 
 $parentId = findBrandGroup($brandName);
-
-echo "BRAND: {$brandName}\n";
-echo "BRAND ID: {$brandId}\n";
-echo "GROUP ID: {$parentId}\n";
 
 $goodId = findProduct($code);
 
@@ -396,30 +379,6 @@ if (!$goodId) {
 
                 $row++;
     }
-
-    print_r([
-    'id' => 'documents.purchase',
-    'date' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
-    'originalNumber' => $omega['Number'],
-    'originalDate' => date('Y-m-d H:i:s', strtotime($omega['Date'])),
-    'firm' => FIRM_ID,
-    // 'business' => BUSINESS_ID,
-    'storage' => STORAGE_ID,
-    // 'person' => PERSON_ID,
-    // 'contract' => CONTRACT_ID,
-    'currency' => CURRENCY_ID,
-    'amountCur' => $omega['Summ'],
-    'rate' => 1,
-    'taxAccount' => 1,
-    'paymentForm' => '1110300000000001',
-    'department' => '1101900000000001',
-    'state' => '1111500000000005',
-    'docMode' => DOCMODE_ID,
-    'posted' => 0
-]);
-   
-    echo "TP GOODS:\n";
-print_r($tpGoods);
     
     $doc = dilovod([
         'action' => 'saveObject',
@@ -455,8 +414,12 @@ print_r($tpGoods);
          ]  
                    ]);
 
-    print_r($doc);
-    echo "\n";
+    if (!empty($doc['error'])) {
+    echo "DOCUMENT ERROR: " . $doc['error'] . "\n";
+    return;
+}
+
+echo "DOCUMENT CREATED: {$doc['id']}\n";
 }
 
 $list = omegaList();
