@@ -468,6 +468,7 @@ $list = omegaList();
 
 $processed = [];
 
+echo "NUMBER=[{$number}] KEY={$key}\n";
 foreach ($list['Data']['Result'] as $doc) {
 
     $header = omegaHeader($doc['Id']);
