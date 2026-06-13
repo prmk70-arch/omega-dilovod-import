@@ -472,24 +472,21 @@ foreach ($list['Data']['Result'] as $doc) {
     }
 
     $number = trim((string)$header['Data']['Number']);
-    $key = md5($number);
+$key = md5($number);
 
-    echo "NUMBER=[{$number}] KEY={$key}\n";
+if (isset($processed[$key])) {
+    continue;
+}
 
-    if (isset($processed[$key])) {
-        echo "DUPLICATE IN MEMORY: {$number}\n";
-        continue;
-    }
+$processed[$key] = true;
 
-    $processed[$key] = true;
+if (findDocumentByNumber($number)) {
+    echo "SKIP EXISTS: {$number}\n";
+    continue;
+}
 
-    if (findDocumentByNumber($number)) {
-        echo "SKIP EXISTS: {$number}\n";
-        continue;
-    }
-
-    echo "IMPORT DOCUMENT: {$number}\n";
-    importDocument($doc['Id']);
+echo "IMPORT DOCUMENT: {$number}\n";
+importDocument($doc['Id']);
 }
 
 echo "DONE\n";
