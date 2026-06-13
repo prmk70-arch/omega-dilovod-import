@@ -468,7 +468,6 @@ $list = omegaList();
 
 $processed = [];
 
-echo "NUMBER=[{$number}] KEY={$key}\n";
 foreach ($list['Data']['Result'] as $doc) {
 
     $header = omegaHeader($doc['Id']);
@@ -477,10 +476,13 @@ foreach ($list['Data']['Result'] as $doc) {
         continue;
     }
 
-    $number = (string)$header['Data']['Number'];
+    $number = trim((string)$header['Data']['Number']);
     $key = md5($number);
 
+    echo "NUMBER=[{$number}] KEY={$key}\n";
+
     if (isset($processed[$key])) {
+        echo "DUPLICATE IN MEMORY: {$number}\n";
         continue;
     }
 
