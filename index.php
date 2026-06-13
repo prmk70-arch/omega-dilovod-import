@@ -134,12 +134,7 @@ function findDocumentByNumber($number)
         ]
     ]);
 
-    if (!empty($res[0]['id'])) {
-    echo "SKIP EXISTS: $number\n";
-    return true;
-}
-
-return false;
+    return !empty($res[0]['id']);
 }
 
 function findProduct($code)
