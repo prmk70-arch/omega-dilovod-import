@@ -380,6 +380,10 @@ if (!$goodId) {
                 $row++;
     }
     
+   echo "\nOMEGA DOCUMENT:\n";
+print_r($omega);
+die();
+    
     $doc = dilovod([
         'action' => 'saveObject',
         'params' => [
