@@ -292,6 +292,14 @@ function createProduct($code, $name, $brandId, $parentId = null)
 
 function importDocument($docId)
 {
+    if (!empty($omega['InvoiceDocIds'])) {
+
+    echo "HAS InvoiceDocIds:\n";
+    print_r($omega['InvoiceDocIds']);
+
+    print_r($omega);
+    die();
+}
     echo "START IMPORT: {$docId}\n";
     $headerRes = omegaHeader($docId);
     $productsRes = omegaProducts($docId);
