@@ -447,19 +447,21 @@ foreach ($list['Data']['Result'] as $doc) {
     }
 
     $number = trim((string)$header['Data']['Number']);
-$key = md5($number);
+    if (!empty($header['Data']['InvoiceDocIds'])) {
+
+    echo "SKIP INVOICE: {$number}\n";
+    echo $header['Data']['Description'] . PHP_EOL;
+
+    continue;
+}
+
+    $key = md5($number);
 
 if (isset($processed[$key])) {
     continue;
 }
 
-    if (!empty($omega['InvoiceDocIds'])) {
-
-        echo "SKIP INVOICE: {$omega['Number']}\n";
-        continue;
-    }
-
-$processed[$key] = true;
+    $processed[$key] = true;
 
 if (findDocumentByNumber($number)) {
     echo "SKIP EXISTS: {$number}\n";
