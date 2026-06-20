@@ -453,6 +453,12 @@ if (isset($processed[$key])) {
     continue;
 }
 
+    if (!empty($omega['InvoiceDocIds'])) {
+
+        echo "SKIP INVOICE: {$omega['Number']}\n";
+        continue;
+    }
+
 $processed[$key] = true;
 
 if (findDocumentByNumber($number)) {
