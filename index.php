@@ -450,15 +450,15 @@ foreach ($list['Data']['Result'] as $doc) {
     }
 
     $number = trim((string)$header['Data']['Number']);
-    if (!empty($header['Data']['InvoiceDocIds'])) {
 
-    echo "SKIP INVOICE: {$number}\n";
-    echo $header['Data']['Description'] . PHP_EOL;
-
-    continue;
-}
-
-    $key = md5($number);
+     echo "\n";
+     echo "NUMBER: " . $header['Data']['Number'] . PHP_EOL;
+     echo "STATUS: " . $header['Data']['Status'] . PHP_EOL;
+     echo "DESCRIPTION: " . $header['Data']['Description'] . PHP_EOL;
+     echo "INVOICE IDS: " . count($header['Data']['InvoiceDocIds'] ?? []) . PHP_EOL;
+     echo "\n";
+    
+        $key = md5($number);
 
 if (isset($processed[$key])) {
     continue;
