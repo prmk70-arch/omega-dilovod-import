@@ -442,7 +442,7 @@ foreach ($list['Data']['Result'] as $doc) {
 
     $header = omegaHeader($doc['Id']);
     
-    print_r($header);
+    //print_r($header);
     die();
     
     if (empty($header['Success'])) {
