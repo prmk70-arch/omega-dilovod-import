@@ -320,12 +320,14 @@ function importDocument($docId)
     $row = 1;
 
     foreach ($products as $p) {
-        $code = trim($p['Code']);
-      
-        if ($code == '05-2713') {
+
         print_r($p);
+
+        echo "\nBRAND FIELD = ";
+        var_dump($p['Brand'] ?? null);
+
         die();
-        }
+     }
         
         $name = trim($p['ProductDescrition']);
         $qty = (float)$p['Count'];
