@@ -1,10 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-echo "SCRIPT START\n";
-
 header('Content-Type: text/plain; charset=utf-8');
 set_time_limit(300);
 
@@ -297,15 +292,7 @@ function createProduct($code, $name, $brandId, $parentId = null)
 
 function importDocument($docId)
 {
-    if (!empty($omega['InvoiceDocIds'])) {
-
-    echo "HAS InvoiceDocIds:\n";
-    print_r($omega['InvoiceDocIds']);
-
-    print_r($omega);
-    die();
-}
-    echo "START IMPORT: {$docId}\n";
+        echo "START IMPORT: {$docId}\n";
     $headerRes = omegaHeader($docId);
     $productsRes = omegaProducts($docId);
 
@@ -392,11 +379,7 @@ if (!$goodId) {
 
                 $row++;
     }
-    
-   echo "\nOMEGA DOCUMENT:\n";
-print_r($omega);
-die();
-    
+     
     $doc = dilovod([
         'action' => 'saveObject',
         'params' => [
