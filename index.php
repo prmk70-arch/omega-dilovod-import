@@ -32,7 +32,11 @@ function postJson($url, $data)
     ]);
 
     $response = curl_exec($ch);
-
+    
+    echo "\nRAW JSON:\n";
+    echo $response;
+    die();
+    
     if (curl_errno($ch)) {
         die(curl_error($ch));
     }
