@@ -112,6 +112,10 @@ function omegaProducts($docId)
             'DocId' => $docId
         ]
     );
+    $response = curl_exec($ch);
+
+    echo $response;
+    die();
 }
 
 function findDocumentByNumber($number)
