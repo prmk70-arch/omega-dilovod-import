@@ -308,6 +308,11 @@ function importDocument($docId)
     $headerRes = omegaHeader($docId);
     $productsRes = omegaProducts($docId);
 
+    echo "\nPRODUCTS RES:\n";
+    print_r($productsRes);
+    die();
+    
+
     if (empty($headerRes['Success']) || empty($productsRes['Success'])) {
         echo "OMEGA ERROR: $docId\n";
         return;
