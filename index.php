@@ -248,6 +248,13 @@ function createBrand($name)
     return false;
 }
 
+echo "\nPRODUCT:\n";
+echo "CODE: {$code}\n";
+echo "NAME: {$name}\n";
+echo "BRAND NAME: {$brandName}\n";
+echo "BRAND ID: {$brandId}\n";
+echo "PARENT ID: {$parentId}\n\n";
+
 function createProduct($code, $name, $brandId, $parentId = null)
 {
     $header = [
@@ -272,6 +279,11 @@ function createProduct($code, $name, $brandId, $parentId = null)
     }
 
     $res = dilovod([
+     
+    echo "\nCREATE PRODUCT:\n";
+    print_r($header);
+    echo "\n";
+                   
         'action' => 'saveObject',
         'params' => [
             'saveType' => 1,
