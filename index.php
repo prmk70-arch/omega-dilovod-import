@@ -313,6 +313,12 @@ function importDocument($docId)
 
     foreach ($products as $p) {
         $code = trim($p['Code']);
+      
+        if ($code == '05-2713') {
+        print_r($p);
+        die();
+        }
+        
         $name = trim($p['ProductDescrition']);
         $qty = (float)$p['Count'];
         $price = (float)$p['PiceWithVAT'];
