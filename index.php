@@ -308,11 +308,6 @@ function importDocument($docId)
     $headerRes = omegaHeader($docId);
     $productsRes = omegaProducts($docId);
 
-    echo "\nPRODUCTS RES:\n";
-    print_r($productsRes);
-    die();
-    
-
     if (empty($headerRes['Success']) || empty($productsRes['Success'])) {
         echo "OMEGA ERROR: $docId\n";
         return;
@@ -325,26 +320,22 @@ function importDocument($docId)
     $row = 1;
 
     foreach ($products as $p) {
-
-        print_r($p);
-
-        echo "\nBRAND FIELD = ";
-        var_dump($p['Brand'] ?? null);
-
-        die();
-     }
         
+        $code = trim($p['Code']);
         $name = trim($p['ProductDescrition']);
         $qty = (float)$p['Count'];
         $price = (float)$p['PiceWithVAT'];
                 
         $brandName = trim($p['Brand'] ?? '');
-   
-     if (!$brandName) {
 
-     if (preg_match('/\(([^)]+)\)\s*$/u', $p['ProductDescrition'], $m)) {
+        if (!$brandName) {
 
-        $brandName = trim($m[1]);
+            if (preg_match('/\(([^)]+)\)\s*$/u', $p['ProductDescrition'], $m)) {
+                $brandName = trim($m[1]);
+
+         echo "\nDEBUG BRAND:\n";
+         print_r($p);
+         echo "\nBRAND NAME = {$brandName}\n";
 
     // (пр-во Bosch)
     } elseif (preg_match('/\(пр-во\s+([^)]+)\)/ui', $p['ProductDescrition'], $m)) {
