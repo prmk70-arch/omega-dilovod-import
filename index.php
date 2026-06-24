@@ -117,9 +117,7 @@ function omegaProducts($docId)
         ]
     );
     $response = curl_exec($ch);
-
-    echo $response;
-    die();
+    
 }
 
 function findDocumentByNumber($number)
@@ -308,6 +306,10 @@ function importDocument($docId)
     $headerRes = omegaHeader($docId);
     $productsRes = omegaProducts($docId);
 
+    echo "\nPRODUCTS STRUCTURE:\n";
+    print_r($productsRes);
+    die();
+    
     if (empty($headerRes['Success']) || empty($productsRes['Success'])) {
         echo "OMEGA ERROR: $docId\n";
         return;
