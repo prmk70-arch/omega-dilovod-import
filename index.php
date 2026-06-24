@@ -334,6 +334,10 @@ function importDocument($docId)
         
         $brandName = trim($p['Brand'] ?? '');
 
+        echo "\nBRAND FROM API: ";
+        var_dump($p['Brand'] ?? null);
+        echo "\n";
+
         if (!$brandName) {
 
             if (preg_match('/\(([^)]+)\)\s*$/u', $p['ProductDescrition'], $m)) {
