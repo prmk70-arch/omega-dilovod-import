@@ -114,7 +114,6 @@ function omegaProducts($docId)
             'DocId' => $docId
         ]
     );
-       return $res;
 }
 
 function findDocumentByNumber($number)
@@ -303,10 +302,6 @@ function importDocument($docId)
     $headerRes = omegaHeader($docId);
     $productsRes = omegaProducts($docId);
 
-    echo "\nPRODUCTS STRUCTURE:\n";
-    print_r($productsRes);
-    die();
-    
     if (empty($headerRes['Success']) || empty($productsRes['Success'])) {
         echo "OMEGA ERROR: $docId\n";
         return;
@@ -321,38 +316,27 @@ function importDocument($docId)
     foreach ($products as $p) {
         
         $code = trim($p['Code']);
-        $name = trim($p['ProductDescrition']);
+        $name = trim($p['ProductDescUa']);
         $qty = (float)$p['Count'];
         $price = (float)$p['PiceWithVAT'];
                 
-        echo "\nCODE: {$code}\n";
-        print_r($p);
-        
         $brandName = trim($p['Brand'] ?? '');
-
-        echo "\nBRAND FROM API: ";
-        var_dump($p['Brand'] ?? null);
-        echo "\n";
-
+        
         if (!$brandName) {
 
             if (preg_match('/\(([^)]+)\)\s*$/u', $p['ProductDescrition'], $m)) {
+       
+                $brandName = trim($m[1]);
+       
+            } elseif (preg_match('/\(пр-во\s+([^)]+)\)/ui', $p['ProductDescrition'], $m)) {
+
                 $brandName = trim($m[1]);
 
-         echo "\nDEBUG BRAND:\n";
-         print_r($p);
-         echo "\nBRAND NAME = {$brandName}\n";
+           } else {
 
-    // (пр-во Bosch)
-    } elseif (preg_match('/\(пр-во\s+([^)]+)\)/ui', $p['ProductDescrition'], $m)) {
-
-        $brandName = trim($m[1]);
-
-    } else {
-
-        $brandName = 'Без бренду';
-    }
-}
+              $brandName = 'Без бренду';
+           }
+       }   
                 
        $brandId = findBrand($brandName);
 
@@ -361,13 +345,6 @@ if (!$brandId) {
 }
 
 $parentId = findBrandGroup($brandName);
-
-echo "\nPRODUCT:\n";
-echo "CODE: {$code}\n";
-echo "NAME: {$name}\n";
-echo "BRAND NAME: {$brandName}\n";
-echo "BRAND ID: {$brandId}\n";
-echo "PARENT ID: {$parentId}\n\n";
 
 $goodId = findProduct($code);
 
