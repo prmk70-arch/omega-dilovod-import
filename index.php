@@ -115,6 +115,7 @@ function omegaProducts($docId)
         ]
     );
 
+    echo "\nOMEGA PRODUCTS RESPONSE:\n";
     print_r($res);
     die();
 
