@@ -112,6 +112,8 @@ function omegaProducts($docId)
             'DocId' => $docId
         ]
     );
+
+    return $res;
 }
 
 function findDocumentByNumber($number)
