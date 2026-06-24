@@ -114,12 +114,7 @@ function omegaProducts($docId)
             'DocId' => $docId
         ]
     );
-
-    echo "\nOMEGA PRODUCTS RESPONSE:\n";
-    print_r($res);
-    die();
-
-    return $res;
+       return $res;
 }
 
 function findDocumentByNumber($number)
