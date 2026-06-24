@@ -272,11 +272,7 @@ function createProduct($code, $name, $brandId, $parentId = null)
     if (!empty($parentId)) {
         $header['parent'] = $parentId;
     }
-
-    echo "\nCREATE PRODUCT:\n";
-    print_r($header);
-    echo "\n";
-               
+    
     $res = dilovod([
         'action' => 'saveObject',
         'params' => [
