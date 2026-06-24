@@ -34,9 +34,7 @@ function postJson($url, $data)
     $response = curl_exec($ch);
     
     echo "\nRAW JSON:\n";
-    echo $response;
-    die();
-    
+        
     if (curl_errno($ch)) {
         die(curl_error($ch));
     }
@@ -109,15 +107,18 @@ function omegaProducts($docId)
 {
     global $omegaKey;
 
-    return postJson(
+    $res = postJson(
         'https://public.omega.page/public/api/v1.0/expense/getExpenseDocumentDetails',
         [
             'Key' => $omegaKey,
             'DocId' => $docId
         ]
     );
-    $response = curl_exec($ch);
-    
+
+    print_r($res);
+    die();
+
+    return $res;
 }
 
 function findDocumentByNumber($number)
